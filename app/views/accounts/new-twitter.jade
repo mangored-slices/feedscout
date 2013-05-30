@@ -1,0 +1,42 @@
+extend ../layout
+block content
+  ul.breadcrumb
+    li
+      a(href='/admin/accounts') Accounts
+      span.divider
+
+    li.active
+      | Create account
+
+  .page-header
+    h1 Add Twitter
+
+  .alert.alert-info
+    h5 Instructions
+    p
+      | To get started create a new application on Twitter for your website by going to https://dev.twitter.com/apps/new. Once you are done creating your application you will be taken to your application page on Twitter, there you already have two pieces of the puzzle, the Consumer key and the Consumer secret make sure you save those.
+
+    p
+      a.btn.btn-small(href='https://dev.twitter.com/apps/new', target='_blank') Create your Twitter app
+
+  .well
+    form.form-horizontal(method='post', action='/admin/accounts')
+      input(type='hidden', name='account[service]', value=account.service)
+      .control-group
+        label.control-label Feed name
+        .controls
+          input(type='text', name='account[name]', value=account.name)
+      .control-group
+        label.control-label Consumer key
+        .controls
+          input(type='text', name='account[credentials][consumerKey]', value=account.getCredentials().consumerKey, autofocus)
+
+      .control-group
+        label.control-label Consumer secret
+        .controls
+          input(type='text', name='account[credentials][consumerSecret]', value=account.getCredentials().consumerSecret)
+
+      .control-group
+        .controls
+          button.btn.btn-primary(type='submit') Continue
+

@@ -1,0 +1,48 @@
+extend ../layout
+block content
+  ul.breadcrumb
+    li
+      a(href='/admin/accounts') Accounts
+      span.divider
+
+    li.active
+      = account.name
+
+  .page-header
+    h1
+      = account.name
+
+  .well
+    h4 Login via Twitter now
+    a.btn.btn-large.btn-primary(href='/admin/accounts/' + account.id + '/auth/twitter') Authorize
+
+  table.table
+    - creds = account.getCredentials()
+    dl
+      dt Consumer key
+      dd
+        code= creds.consumerKey
+    dl
+      dt Consumer secret
+      dd
+        code= creds.consumerSecret
+    dl
+      dt Access token
+      dd
+        code= creds.accessToken
+    dl
+      dt Access token secret
+      dd
+        code= creds.accessTokenSecret
+
+    - if (creds.displayName)
+      dl
+        dt User
+        dd
+          img(src=creds.photo, width=50, height=50)
+          br
+          strong= creds.displayName
+          br
+          em= creds.username
+
+

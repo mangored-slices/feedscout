@@ -1,4 +1,4 @@
-extend layout
+extend ../layout
 block content
   .page-header
     h1 Accounts
@@ -8,10 +8,20 @@ block content
       thead
         tr
           th Name
+          th Service
+          th(style='width: 20%; text-align: right')
 
       each account in accounts
         tr
-          td.name= account
+          td.name= account.name
+          td.service= account.service
+          td.actions
+            a.btn.btn-small(href='/admin/accounts/'+account.id)
+              i.icon-edit
+              = " Edit"
+            = " "
+            a.btn.btn-small.btn-danger(href='#')
+              i.icon-white.icon-trash
 
   .btn-group
     a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
@@ -22,7 +32,7 @@ block content
       li
         a(href='/admin/accounts/new') Flickr
       li
-        a(href='/admin/accounts/new') Twitter
+        a(href='/admin/accounts/new/twitter') Twitter
       li
         a(href='/admin/accounts/new') Instagram
       li

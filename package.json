@@ -24,7 +24,11 @@
     "expo-connect_assets": "*",
     "expo-sequelize": "*",
     "expo": "*",
-    "sequelize": "~1.7.0-alpha2"
+    "sequelize": "~1.7.0-alpha2",
+    "async": "~0.2.9",
+    "passport": "~0.1.17",
+    "passport-twitter": "~0.1.4",
+    "passport-instagram": "~0.1.2"
   },
   "devDependencies": {
     "mocha": "*",
