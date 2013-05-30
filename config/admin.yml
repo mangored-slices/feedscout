@@ -1,0 +1,5 @@
+# Save this as config/admin.yml
+
+default:
+  username: "admin"
+  password: "2182896d89fb9801d792582751cb0fa4f7305f8faf24dae6ab129401011489d0dff394405406933dea59be1cb0f2eb509f99c1a65c79b4646db8088e93f613a5"

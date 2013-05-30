@@ -1,0 +1,9 @@
+# https://dev.twitter.com/apps/new
+twitter:
+  consumer_key:
+  consumer_secret:
+
+# http://instagram.com/developer
+instagram:
+  client_id:
+  client_secret:

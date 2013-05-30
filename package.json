@@ -23,7 +23,8 @@
     "supertest": "*",
     "expo-connect_assets": "*",
     "expo-sequelize": "*",
-    "expo": "*"
+    "expo": "*",
+    "sequelize": "~1.7.0-alpha2"
   },
   "devDependencies": {
     "mocha": "*",
