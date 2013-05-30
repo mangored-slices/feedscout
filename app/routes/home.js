@@ -1,44 +1,57 @@
 var express = require('express');
 module.exports = function(app) {
+  var admin = require('./admin_filters');
+
   app.get('/',
-    nil());
+    nil);
 
   app.all('/admin*',
-    express.basicAuth(auth, 'Admin area'));
+    admin.authenticate);
 
   app.get('/admin',
     redirect('/admin/accounts'));
 
-  // index
   app.get('/admin/accounts',
-    nil());
+    setAccounts,
+    index);
 
-  // new
   app.get('/admin/accounts/new',
-    nil());
+    new_);
 
-  // show
   app.get('/admin/accounts/:id',
     setAccount,
-    nil());
+    show);
 
-  // create
   app.post('/admin/accounts',
-    nil());
+    create);
 
-  // update
   app.post('/admin/accounts/:id',
-    nil());
+    setAccount,
+    update);
 
-  // delete
   app.del('/admin/accounts/:id',
     setAccount,
-    nil());
+    destroy);
 
-  function auth(user, pass) {
-    var creds = app.conf('admin');
-    var hash = require('../../lib/utils').hashify;
-    return user === creds.username && hash(pass) === creds.password;
+  function index(req, res) {
+    res.render('accounts-index');
+  }
+
+  function new_(req, res) {
+    res.render('accounts-new');
+  }
+
+  function show(req, res) {
+    res.send('');
+  }
+
+  function create(req, res) {
+  }
+
+  function update(req, res) {
+  }
+
+  function destroy(req, res) {
   }
 
   // Retrieve an account.
@@ -46,12 +59,13 @@ module.exports = function(app) {
     next();
   }
 
-  function nil() {
-    return function(req, res) { res.json({ok: true}); };
+  function setAccounts(req, res, next) {
+    res.locals.accounts = ['tom', 'harry'];
+    next();
   }
 
-  function render(view) {
-    return function(req, res) { res.render(view); };
+  function nil(req, res) {
+    res.send('');
   }
 
   function redirect(url) {

@@ -1,0 +1,29 @@
+extend layout
+block content
+  .page-header
+    h1 Accounts
+
+  - if (accounts.length)
+    table.table
+      thead
+        tr
+          th Name
+
+      each account in accounts
+        tr
+          td.name= account
+
+  .btn-group
+    a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
+      = " New account "
+      span.caret
+
+    ul.dropdown-menu
+      li
+        a(href='/admin/accounts/new') Flickr
+      li
+        a(href='/admin/accounts/new') Twitter
+      li
+        a(href='/admin/accounts/new') Instagram
+      li
+        a(href='/admin/accounts/new') Tumblr
