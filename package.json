@@ -1,0 +1,34 @@
+{
+  "name": "feedscout",
+  "description": "Your Expo application",
+  "author": "You <me@here.com>",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "repository": {},
+  "main": "./app",
+  "bin": {
+    "run": "./run"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R spec --compilers coffee:coffee-script"
+  },
+  "dependencies": {
+    "express": "3.2.x",
+    "jade": "*",
+    "stylus": "*",
+    "nib": "*",
+    "supertest": "*",
+    "expo-connect_assets": "*",
+    "expo-sequelize": "*",
+    "expo": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sqlite3": "2.1.x",
+    "coffee-script": "*"
+  }
+}

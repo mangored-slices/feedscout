@@ -1,0 +1,6 @@
+db/*.sqlite
+config/database.js
+public/css
+public/js
+public/img
+node_modules
