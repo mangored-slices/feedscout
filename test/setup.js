@@ -11,7 +11,8 @@ global.request = require('supertest');
 global.app = require('../app');
 app.load('test');
 
+global.wrap = require('../lib/utils').wrap;
+
 exports.before = function(done) {
-  // Insert any async-style code here to be done on each test.
-  done();
+  wrap(app.sequelize().sync({ force: true }), done);
 };
