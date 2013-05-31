@@ -3,35 +3,8 @@ require('./setup');
 var Account = require('../lib/models/account');
 
 describe('Accounts', function() {
-  beforeEach(function(done) {
-    var account = Account.build({
-      service: 'twitter',
-      name: 'mytwitter'
-    });
-
-    account.setCredentials({
-      username: "rstacruz",
-      displayName: "Rico Sta. Cruz",
-      photoUrl: "http://imgur.com/a.jpg"
-    });
-
-    wrap(account.save(), done);
-  });
-
-  beforeEach(function(done) {
-    var account = Account.build({
-      service: 'instagram',
-      name: 'myinstagram'
-    });
-
-    account.setCredentials({
-      username: "rstacruz",
-      displayName: "Rico Sta. Cruz",
-      photoUrl: "http://imgur.com/a.jpg"
-    });
-
-    wrap(account.save(), done);
-  });
+  beforeEach(createTwitter);
+  beforeEach(createInstagram);
 
   it("/sources.json", function(done) {
     request(app)
@@ -49,3 +22,33 @@ describe('Accounts', function() {
       });
   });
 });
+
+function createTwitter(done) {
+  var account = Account.build({
+    service: 'twitter',
+    name: 'mytwitter'
+  });
+
+  account.setCredentials({
+    username: "rstacruz",
+    displayName: "Rico Sta. Cruz",
+    photoUrl: "http://imgur.com/a.jpg"
+  });
+
+  wrap(account.save(), done);
+}
+
+function createInstagram(done) {
+  var account = Account.build({
+    service: 'instagram',
+    name: 'myinstagram'
+  });
+
+  account.setCredentials({
+    username: "ricostacruz",
+    displayName: "Rico Sta. Cruz",
+    photoUrl: "http://imgur.com/b.jpg"
+  });
+
+  wrap(account.save(), done);
+}
