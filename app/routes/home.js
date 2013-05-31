@@ -1,10 +1,10 @@
 var express = require('express');
-
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
+var Account = require('../../lib/models/account');
+var admin = require('./admin_filters');
 
 module.exports = function(app) {
-  var admin = require('./admin_filters');
 
   app.get('/',
     nil);
@@ -32,20 +32,25 @@ module.exports = function(app) {
   app.post('/admin/accounts',
     create);
 
-  app.post('/admin/accounts/:id',
-    getAccount,
-    update);
-
+  // Destroy
   app.del('/admin/accounts/:id',
     getAccount,
     destroy);
 
+  // Oauth
   app.get('/admin/accounts/:id/auth/twitter',
     getAccount,
     ensureAccountIs('twitter'),
     passportTwitter);
 
-  var Account = require('../../lib/models/account');
+  // Oauth callback
+  app.get('/admin/accounts/:id/auth/twitter/callback',
+    getAccount,
+    ensureAccountIs('twitter'),
+    passportTwitterCallback);
+
+  // ----------------------------------------------------------------------------
+  // Actions
 
   function index(req, res) {
     res.render('accounts/index');
@@ -71,9 +76,10 @@ module.exports = function(app) {
   function create(req, res) {
     var data = req.body.account;
 
-    var account = Account.build(data);
+    var account = res.locals.account =
+      Account.build(data);
+
     account.setCredentials(data.credentials);
-    res.locals.account = account;
 
     var service = account.service;
 
@@ -84,11 +90,17 @@ module.exports = function(app) {
     });
   }
 
-  function update(req, res) {
+  function destroy(req, res, next) {
+    var account = res.locals.account;
+    account.destroy()
+      .success(function() {
+        res.redirect('/admin/accounts');
+      })
+      .error(function(err) { next(err); });
   }
 
-  function destroy(req, res) {
-  }
+  // ----------------------------------------------------------------------------
+  // Filters
 
   /*
    * Retrieves an account for editing.
@@ -101,6 +113,10 @@ module.exports = function(app) {
     });
   }
 
+  /*
+   * (Filter) ensures the account is of a given service.
+   * Useful for OAuth callbacks.
+   */
   function ensureAccountIs(service) {
     return function(req, res, next) {
       var account = res.locals.account;
@@ -110,6 +126,29 @@ module.exports = function(app) {
     };
   }
 
+  /*
+   * Retrieves the list of accounts for indexing
+   */
+  function getAccounts(req, res, next) {
+    wrap(Account.findAll(), next, function(accounts) {
+      res.locals.accounts = accounts;
+    });
+  }
+
+  function nil(req, res) {
+    res.send('');
+  }
+
+  function redirect(url) {
+    return function(req, res) { res.redirect(url); };
+  }
+
+  // ----------------------------------------------------------------------------
+  // Twitter OAuth
+
+  /*
+   * Endpoint for Twitter OAuth.
+   */
   function passportTwitter(req, res, next) {
     var account = res.locals.account;
     var id = res.locals.account.id;
@@ -139,40 +178,30 @@ module.exports = function(app) {
     passport.authenticate('twitter').apply(this, arguments);
   }
 
-  app.get('/admin/accounts/:id/auth/twitter/callback', function(req, res, next) {
+  /*
+   * Callback for twitter auth.
+   * Does nothing, really... since it's the Strategy that handles things.
+   */
+  function passportTwitterCallback(req, res, next) {
     var id = req.params.id;
     passport.authenticate('twitter', {
         successRedirect: '/admin/accounts/'+id,
         failureRedirect: '/admin/accounts/'+id
     }).apply(this, arguments);
-  });
+  }
+
+  // ----------------------------------------------------------------------------
+  // Helpers
 
   /*
-   * Retrieves the list of accounts for indexing
-   */
-  function getAccounts(req, res, next) {
-    wrap(Account.findAll(), next, function(accounts) {
-      res.locals.accounts = accounts;
-    });
-  }
-
-  function nil(req, res) {
-    res.send('');
-  }
-
-  function redirect(url) {
-    return function(req, res) { res.redirect(url); };
-  }
-
-  /*
-   * Wraps a Sequelize promise
+   * Wraps a Sequelize promise for a filter
    */
   function wrap(promise, next, callback) {
     promise
       .success(function(data) {
         if (!data) return next(404);
         if (callback) callback(data);
-        next();
+        next(null, data);
       })
       .error(function(err) {
         next(err);

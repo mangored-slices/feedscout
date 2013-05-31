@@ -20,7 +20,7 @@ block content
               i.icon-edit
               = " Edit"
             = " "
-            a.btn.btn-small.btn-danger(href='#')
+            a.btn.btn-small.btn-danger(href='/admin/accounts/'+account.id, data-method='delete', data-confirm='Really?')
               i.icon-white.icon-trash
 
   .btn-group
