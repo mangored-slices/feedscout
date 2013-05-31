@@ -3,11 +3,11 @@ var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 var Account = require('../../lib/models/account');
 var admin = require('./admin_filters');
-var wrap = require('./helpers').wrap;
+var wrap = require('../../lib/utils').wrap;
 var app = require('../..');
 
 app.get('/',
-  nil);
+  home);
 
 app.all('/admin*',
   admin.authenticate);
@@ -51,6 +51,10 @@ app.get('/admin/accounts/:id/auth/twitter/callback',
 
 // ----------------------------------------------------------------------------
 // Actions
+
+function home(req, res) {
+  res.render('index');
+}
 
 function index(req, res) {
   res.render('accounts/index');
@@ -108,8 +112,11 @@ function destroy(req, res, next) {
 function getAccount(req, res, next) {
   var id = req.params.id;
 
-  wrap(Account.find(id), next, function(account) {
+  wrap(Account.find(id), function(err, account) {
+    if (err) return next(404);
+
     res.locals.account = account;
+    next();
   });
 }
 
@@ -130,8 +137,11 @@ function ensureAccountIs(service) {
  * Retrieves the list of accounts for indexing
  */
 function getAccounts(req, res, next) {
-  wrap(Account.findAll(), next, function(accounts) {
+  wrap(Account.findAll(), function(err, accounts) {
+    if (err) return next(404);
+
     res.locals.accounts = accounts;
+    next();
   });
 }
 

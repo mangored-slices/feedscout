@@ -1,7 +1,14 @@
-extend layout
-
-block content
-  body
-    h1 Hello from Express!
-    p
-      a(href='/') Next
+style
+  body { font-family: sans-serif; padding: 40px; line-height: 1.5; font-size: 11pt; }
+dl
+  dt
+    a(href='/feed.json')
+      /feed.json
+  dd
+    | List latest entries
+dl
+  dt
+    a(href='/sources.json')
+      /sources.json
+  dd
+    | Sources

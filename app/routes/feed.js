@@ -1,7 +1,8 @@
 var Account = require('../../lib/models/account');
 var FeedFetcher = require('../../lib/feed_fetcher');
-var wrap = require('./helpers').wrap;
 var app = require('../..');
+var wrap = require('../../lib/utils').wrap;
+var setter = require('../../lib/utils').setter;
 
 app.get('/feed.json',
   fetchFeed,
@@ -34,16 +35,19 @@ function sources(req, res) {
 // ----------------------------------------------------------------------------
 
 function getAccounts(req, res, next) {
-  wrap(Account.findAll(), next, function(accounts) {
+  wrap(Account.findAll(), function(err, accounts) {
+    if (err) return next(404);
+
     res.locals.accounts = accounts;
+    next();
   });
 }
 
 function fetchFeed(req, res, next) {
   FeedFetcher.fetch(true, function(err, data) {
-    if (err) return next(err);
+    if (err) return next("Can't fetch feeds");
 
-    res.locals.feed = data;
+    res.locals.feeds = data;
     next();
   });
 }
