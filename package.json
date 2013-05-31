@@ -28,7 +28,8 @@
     "async": "~0.2.9",
     "passport": "~0.1.17",
     "passport-twitter": "~0.1.4",
-    "passport-instagram": "~0.1.2"
+    "passport-instagram": "~0.1.2",
+    "twitter": "~0.1.18"
   },
   "devDependencies": {
     "mocha": "*",

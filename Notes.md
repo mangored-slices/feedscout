@@ -1,6 +1,9 @@
 Dev notes
 =========
 
+    FeedFetcher.fetch(true, function(err, data) {
+    });
+
 RESTful API
 -----------
 
