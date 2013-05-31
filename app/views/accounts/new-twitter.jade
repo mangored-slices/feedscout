@@ -12,9 +12,15 @@ block content
     h1 Add Twitter
 
   .alert.alert-info
-    h5 Instructions
-    p
-      | To get started create a new application on Twitter for your website by going to https://dev.twitter.com/apps/new. Once you are done creating your application you will be taken to your application page on Twitter, there you already have two pieces of the puzzle, the Consumer key and the Consumer secret make sure you save those.
+    h5 Instructions:
+    ol
+      li Create a new application on Twitter (follow link below).
+      li Create your application.
+      li
+        = "Set callback URL to "
+        i= "http://127.0.0.1:4567/"
+      li
+        != "Find the <u>consumer key</u> and <u>consumer secret</u> and paste them below."
 
     p
       a.btn.btn-small(href='https://dev.twitter.com/apps/new', target='_blank') Create your Twitter app
