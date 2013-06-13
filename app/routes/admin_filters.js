@@ -4,6 +4,9 @@ var express = require('express');
 
 /**
  * Authenticates a user.
+ *
+ *     auth('admin', 'mypassword');
+ *     //=> true or false
  */
 
 exports.auth = function(user, pass) {

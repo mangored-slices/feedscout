@@ -13,6 +13,7 @@ app.get('/sources.json',
   sources);
 
 // ----------------------------------------------------------------------------
+// Actions
 
 function feed(req, res) {
   var obj = {
@@ -33,6 +34,7 @@ function sources(req, res) {
 }
 
 // ----------------------------------------------------------------------------
+// Filters
 
 function getAccounts(req, res, next) {
   wrap(Account.findAll(), function(err, accounts) {
