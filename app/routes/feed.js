@@ -36,6 +36,11 @@ function sources(req, res) {
 // ----------------------------------------------------------------------------
 // Filters
 
+/**
+ * Fetches available accounts.
+ * Sets `locals.accounts`
+ */
+
 function getAccounts(req, res, next) {
   wrap(Account.findAll(), function(err, accounts) {
     if (err) return next(404);
@@ -44,6 +49,11 @@ function getAccounts(req, res, next) {
     next();
   });
 }
+
+/**
+ * Asks the feed fetcher to fetch feeds dynamically.
+ * Sets `locals.feeds`
+ */
 
 function fetchFeed(req, res, next) {
   FeedFetcher.fetch(true, function(err, data) {
