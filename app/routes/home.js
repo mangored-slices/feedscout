@@ -145,10 +145,6 @@ function getAccounts(req, res, next) {
   });
 }
 
-function nil(req, res) {
-  res.send('');
-}
-
 function redirect(url) {
   return function(req, res) { res.redirect(url); };
 }
@@ -163,6 +159,7 @@ function passportTwitter(req, res, next) {
   var account = res.locals.account;
   var id = res.locals.account.id;
 
+  // Dynamically set the strategy.
   passport.use(new TwitterStrategy({
     consumerKey: account.getCredentials().consumerKey,
     consumerSecret: account.getCredentials().consumerSecret,

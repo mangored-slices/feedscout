@@ -11,38 +11,50 @@ block content
   .page-header
     h1 Add Twitter
 
-  .alert.alert-info
-    h5 Instructions:
-    ol
-      li Create a new application on Twitter (follow link below).
-      li Create your application.
-      li
-        = "Set callback URL to "
-        i= "http://127.0.0.1:4567/"
-      li
-        != "Find the <u>consumer key</u> and <u>consumer secret</u> and paste them below."
-
-    p
-      a.btn.btn-small(href='https://dev.twitter.com/apps/new', target='_blank') Create your Twitter app
-
   .well
     form.form-horizontal(method='post', action='/admin/accounts')
       input(type='hidden', name='account[service]', value=account.service)
-      .control-group
-        label.control-label Feed name
-        .controls
-          input(type='text', name='account[name]', value=account.name)
-      .control-group
-        label.control-label Consumer key
-        .controls
-          input(type='text', name='account[credentials][consumerKey]', value=account.getCredentials().consumerKey, autofocus)
+      fieldset
+        .control-group
+          label.control-label Feed name
+          .controls
+            input(type='text', name='account[name]', value=account.name)
+            br
+            small.muted
+              | The name to identify the feed
 
-      .control-group
-        label.control-label Consumer secret
-        .controls
-          input(type='text', name='account[credentials][consumerSecret]', value=account.getCredentials().consumerSecret)
+      fieldset
+        .control-group
+          label.control-label Consumer key
+          .controls
+            input(type='text', name='account[credentials][consumerKey]', value=account.getCredentials().consumerKey, autofocus)
+            br
+            small.muted
+              | A key for the Twitter application
+
+        .control-group
+          label.control-label Consumer secret
+          .controls
+            input(type='text', name='account[credentials][consumerSecret]', value=account.getCredentials().consumerSecret)
+            br
+            small.muted
+              | The secret associated with the key
 
       .control-group
         .controls
           button.btn.btn-primary(type='submit') Continue
+
+  div
+    h5 Need a consumer key & secret?
+    p If you've done this before, you can use the same key and secret here. If you haven't yet, follow these step-by-step instructions below:
+    ol
+      li Create a new application on Twitter (follow link below).
+      li
+        = "Set callback URL to "
+        i= "http://127.0.0.1:4567/"
+      li
+        != "Find the <u>consumer key</u> and <u>consumer secret</u> and paste them here."
+
+    p
+      a.btn.btn-small(href='https://dev.twitter.com/apps/new', target='_blank') Create your Twitter app
 
