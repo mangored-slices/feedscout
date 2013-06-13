@@ -8,14 +8,17 @@ block content
     li.active
       = account.name
 
+  //------------------------------------------------------------------------
   .page-header
     h1
       = account.name
 
+  //------------------------------------------------------------------------
   .well
     h4 Login via Twitter now
     a.btn.btn-large.btn-primary(href='/admin/accounts/' + account.id + '/auth/twitter') Authorize
 
+  //------------------------------------------------------------------------
   table.table
     - creds = account.getCredentials()
     dl
@@ -44,5 +47,11 @@ block content
           strong= creds.displayName
           br
           em= creds.username
+
+  //------------------------------------------------------------------------
+  .actions
+    a.btn.btn-small.btn-danger(href='/admin/accounts/'+account.id, data-method='delete', data-confirm='Really?')
+      i.icon-white.icon-trash
+      = " Delete account"
 
 
