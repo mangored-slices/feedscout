@@ -6,22 +6,22 @@ _       = require("underscore")
 moment  = require("moment")
 
 ###
- * An account.
- *
- *     creds = account.getCredentials();
- *
- *     // Twitter:
- *     creds.username
- *     creds.consumerKey
- *     creds.consumerSecret
- *     creds.accessToken
- *     creds.accessTokenSecret
- *
- *     // Fetcher
- *     fetcher = account.fetcher();
- *     fetcher.fetch(function(err, data) {
- *       ...
- *     });
+# An account.
+#
+#     creds = account.getCredentials();
+#
+#     // Twitter:
+#     creds.username
+#     creds.consumerKey
+#     creds.consumerSecret
+#     creds.accessToken
+#     creds.accessTokenSecret
+#
+#     // Fetcher
+#     fetcher = account.fetcher();
+#     fetcher.fetch(function(err, data) {
+#       ...
+#     });
 ###
 
 Account = module.exports = app.sequelize().define "Account",
@@ -82,7 +82,7 @@ Account = module.exports = app.sequelize().define "Account",
       new TwitterFetcher(this)
 
     ###
-    # For JSON
+    # These are consumed by toJSON()
     ###
     
     twitter:
