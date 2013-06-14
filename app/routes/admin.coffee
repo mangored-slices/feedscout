@@ -1,9 +1,7 @@
-express = require("express")
-passport = require("passport")
-TwitterStrategy = require("passport-twitter").Strategy
+Twitter = require("../filters/twitter")
+Admin   = require("../filters/admin")
 Account = require("../../lib/models/account")
-admin = require("./admin_filters")
-wrap = require("../../lib/utils").wrap
+
 app = require("../..")
 
 # ----------------------------------------------------------------------------
@@ -111,53 +109,9 @@ redirect = (url) ->
   (req, res) -> res.redirect url
 
 # ----------------------------------------------------------------------------
-# Twitter OAuth
-
-###
-# Endpoint for Twitter OAuth.
-###
-
-passportTwitter = (req, res, next) ->
-  account = res.locals.account
-  id = res.locals.account.id
-
-  # Dynamically set the strategy.
-  passport.use new TwitterStrategy(
-    consumerKey: account.getCredentials().consumerKey
-    consumerSecret: account.getCredentials().consumerSecret
-    callbackURL: "http://127.0.0.1:4567/admin/accounts/#{id}/auth/twitter/callback"
-  , (token, tokenSecret, profile, done) ->
-    account.extendCredentials
-      accessToken: token
-      accessTokenSecret: tokenSecret
-      username: profile.username
-      displayName: profile.displayName
-      photo: profile.photos[0].value
-
-    account.save().success(->
-      done()
-    ).error (e) ->
-      done e
-  )
-
-  passport.authenticate("twitter").apply this, arguments
-
-###
-# Callback for twitter auth.
-# Does nothing, really... since it's the Strategy that handles things.
-###
-
-passportTwitterCallback = (req, res, next) ->
-  id = req.params.id
-  passport.authenticate("twitter",
-    successRedirect: "/admin/accounts/" + id
-    failureRedirect: "/admin/accounts/" + id
-  ).apply this, arguments
-
-# ----------------------------------------------------------------------------
 
 app.all "/admin*",
-  admin.authenticate
+  Admin.authenticate
 
 app.get "/admin",
   redirect("/admin/accounts")
@@ -178,7 +132,7 @@ app.del "/admin/accounts/:id",
   getAccount, destroy
 
 app.get "/admin/accounts/:id/auth/twitter",
-  getAccount, ensureAccountIs("twitter"), passportTwitter
+  getAccount, ensureAccountIs("twitter"), Twitter.auth
 
 app.get "/admin/accounts/:id/auth/twitter/callback",
-  getAccount, ensureAccountIs("twitter"), passportTwitterCallback
+  getAccount, ensureAccountIs("twitter"), Twitter.callback
