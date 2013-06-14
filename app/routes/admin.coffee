@@ -73,8 +73,10 @@ getAccount = (req, res, next) ->
   id = req.params.id
 
   Account.find(id)
-    .error((e) -> next 404)
+    .error((e) -> next e)
     .success (account) ->
+      return next(404)  unless account
+
       res.locals.account = account
       next()
 
@@ -99,7 +101,7 @@ ensureAccountIs = (service) ->
 
 getAccounts = (req, res, next) ->
   Account.findAll()
-    .error((e) -> next 404)
+    .error((e) -> next e)
     .success (accounts) ->
       res.locals.accounts = accounts
       next()
