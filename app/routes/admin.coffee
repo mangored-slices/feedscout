@@ -27,7 +27,8 @@ newTwitter = (req, res) ->
 
 show = (req, res) ->
   account = res.locals.account
-  res.render "accounts/show-" + account.service
+
+  res.render "accounts/show-#{account.service}"
 
 ###
 # POST /admin/accounts
@@ -44,9 +45,9 @@ create = (req, res) ->
 
   account.save()
     .success (->
-      res.redirect "/admin/accounts/" + account.id
+      res.redirect "/admin/accounts/#{account.id}"
     ).error ->
-      res.render "accounts/new-" + service
+      res.render "accounts/new-#{service}"
 
 ###
 # DELETE /admin/accounts/:id
@@ -65,13 +66,14 @@ destroy = (req, res, next) ->
 
 ###
 # Retrieves an account for editing.
+# Sets `locals.account`
 ###
 
 getAccount = (req, res, next) ->
   id = req.params.id
 
   Account.find(id)
-    .error((e) -> next e)
+    .error((e) -> next 404)
     .success (account) ->
       res.locals.account = account
       next()
@@ -92,11 +94,12 @@ ensureAccountIs = (service) ->
 
 ###
 # Retrieves the list of accounts for indexing
+# Sets `locals.accounts`
 ###
 
 getAccounts = (req, res, next) ->
   Account.findAll()
-    .error((e) -> next e)
+    .error((e) -> next 404)
     .success (accounts) ->
       res.locals.accounts = accounts
       next()
