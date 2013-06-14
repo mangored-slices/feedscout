@@ -1,3 +1,4 @@
+var expo = require('expo');
 var express = require('express');
 var passport = require('passport');
 
@@ -18,6 +19,6 @@ module.exports = function(app) {
   app.use(passport.session());
   app.use(app.router);
   app.configure('development', function() {
-    app.use(express.errorHandler());
+    app.use(expo.errorHandler(express.errorHandler));
   });
 };

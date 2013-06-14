@@ -4,9 +4,12 @@ var app = require('../..');
 var wrap = require('../../lib/utils').wrap;
 var setter = require('../../lib/utils').setter;
 
+
 app.get('/feed.json',
   fetchFeed,
-  feed);
+  getAccounts,
+  getTwitter);
+  // feed);
 
 app.get('/sources.json',
   getAccounts,
@@ -15,14 +18,28 @@ app.get('/sources.json',
 // ----------------------------------------------------------------------------
 // Actions
 
-function feed(req, res) {
+function feed(req, res, next) {
   var obj = {
     date: {
       'from': new Date(),
       'to': new Date()
     }
   };
+
+  app.log.log(res.locals.accounts);
+
   res.json(obj);
+}
+
+function getTwitter(req, res, next) {
+  wrap(Account.find({ where: { name: 'twitter' }}), function(err, account) {
+    if (err) return next(404);
+
+    account.fetcher().fetch(function(err, data) {
+      if (err) next(err);
+      res.json(data);
+    });
+  });
 }
 
 function sources(req, res) {

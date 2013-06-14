@@ -25,8 +25,8 @@ $ curl http://api.yoursite.com/feed.json
       username: 'rstacruz',
     },
     image_url: 'http://pic.twitter.com/....jpg',
-    content: 'This is a great thing!',
-    full_content: ''
+    text: 'This is a great thing!',
+    fulltext: ''
   ]
 }
 ```

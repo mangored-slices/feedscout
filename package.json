@@ -27,9 +27,11 @@
     "sequelize": "~1.7.0-alpha2",
     "async": "~0.2.9",
     "passport": "~0.1.17",
-    "passport-twitter": "~0.1.4",
+    "passport-twitter": "~0.1.5",
     "passport-instagram": "~0.1.2",
-    "twitter": "~0.1.18"
+    "twitter": "git://github.com/desmondmorris/node-twitter.git",
+    "underscore": "~1.4.4",
+    "moment": "~2.0.0"
   },
   "devDependencies": {
     "mocha": "*",
