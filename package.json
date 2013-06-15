@@ -31,7 +31,8 @@
     "passport-instagram": "~0.1.2",
     "twitter": "git://github.com/desmondmorris/node-twitter.git",
     "underscore": "~1.4.4",
-    "moment": "~2.0.0"
+    "moment": "~2.0.0",
+    "q": "~0.9.6"
   },
   "devDependencies": {
     "mocha": "*",

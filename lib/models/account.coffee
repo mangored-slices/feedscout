@@ -84,7 +84,7 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     # These are consumed by toJSON()
     ###
-    
+
     twitter:
       toJSON: ->
         creds = @getCredentials()

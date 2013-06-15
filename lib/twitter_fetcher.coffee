@@ -1,5 +1,6 @@
 Twitter = require('twitter')
 Moment = require('moment')
+Q = require('q')
 
 ###
 # Fetcher for Twitter.
@@ -30,19 +31,22 @@ module.exports = class TwitterFetcher
   # Fetches items. Returns an array of JSON objects per tweet
   ###
 
-  fetch: (fn) ->
-    user = @username
+  fetch: ->
+    Q.promise (ok, err) =>
+      console.log("Twitter.get")
+      user = @username
 
-    @twitter.get \
-      "/statuses/user_timeline.json",
-      { screen_name: user },
-      (data) ->
-        return fn(data)  if data.constructor is Error
+      @twitter.get \
+        "/statuses/user_timeline.json",
+        { screen_name: user },
+        (data) ->
+          console.log("Twitter response")
+          return err(data)  if data.constructor is Error
 
-        tweets = data.map (tweet) ->
-          date:     +Moment(tweet.created_at).toDate()
-          url:      "https://twitter.com/#{user}/status/#{tweet.id_str}"
-          text:     tweet.text
-          fulltext: null
+          tweets = data.map (tweet) ->
+            date:     +Moment(tweet.created_at).toDate()
+            url:      "https://twitter.com/#{user}/status/#{tweet.id_str}"
+            text:     tweet.text
+            fulltext: null
 
-        fn null, tweets
+          ok(tweets)

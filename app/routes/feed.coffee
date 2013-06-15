@@ -1,44 +1,44 @@
-Account = require("../../lib/models/account")
-app = require("../..")
+Account = require('../../lib/models/account')
+Q = require('q')
+app = require('../..')
 
 # ----------------------------------------------------------------------------
 
-sources = (req, res) ->
-  accounts = res.locals.accounts
+sources = (req, res, next) ->
 
-  res.json sources: accounts
+  Q.when(
+    Account.findAll()
 
-###
-# Fetches available accounts.
-# Sets `locals.accounts`
-###
+  ).then (accounts) ->
+    res.json sources: accounts
 
-getAccounts = (req, res, next) ->
-  Account.findAll()
-    .error((e) -> next e)
-    .success (accounts) ->
-      res.locals.accounts = accounts
-      next()
+  .fail(next)
 
 ###
 # Lol ionno
 ###
 
-getTwitter = (req, res, next) ->
-  Account.find(where: { name: "twitter" })
-    .error((e) -> next e)
-    .success (account) ->
+fetchFeed = (name) ->
+  Q.when(
+    Account.find(where: { name: name })
 
-      account.fetcher().fetch (err, data) ->
-        return next(err)  if err
-        res.json data
+  ).then (twitter) ->
+    twitter.fetcher().fetch()
+
+showFeed = (req, res, next) ->
+
+  Q.all([
+    fetchFeed('twitter')
+  ])
+  .spread (feeds) ->
+    res.json feeds
+
+  .fail(next)
 
 # ----------------------------------------------------------------------------
 
 app.get "/feed.json",
-  getAccounts,
-  getTwitter
+  showFeed
 
 app.get "/sources.json",
-  getAccounts,
   sources
