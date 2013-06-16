@@ -4,6 +4,10 @@ Setup:
 
     $ npm install
 
+Set up config:
+
+    $ ./run gen-admin
+
 Run:
 
     $ ./run server

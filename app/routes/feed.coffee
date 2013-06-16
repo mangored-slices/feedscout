@@ -15,6 +15,9 @@ app.get "/feed.json", run (req, res, next) ->
     @feed = new FeedManager(accounts)
     @feed.fetch()
 
+  .then =>
+    @feed.get()
+
   .then (@entries) =>
     data = {
       range: {
