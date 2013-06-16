@@ -30,23 +30,27 @@ module.exports = class TwitterFetcher
   ###
   # Fetches items. Returns an array of JSON objects per tweet
   ###
-
   fetch: ->
     Q.promise (ok, err) =>
-      console.log("Twitter.get")
       user = @username
 
-      @twitter.get \
+      @get \
         "/statuses/user_timeline.json",
         { screen_name: user },
-        (data) ->
-          console.log("Twitter response")
+        (data) =>
           return err(data)  if data.constructor is Error
 
-          tweets = data.map (tweet) ->
-            date:     +Moment(tweet.created_at).toDate()
+          tweets = data.map (tweet) =>
+            source:   @account.toJSON()
+            date:     +Moment(tweet.created_at)
             url:      "https://twitter.com/#{user}/status/#{tweet.id_str}"
             text:     tweet.text
             fulltext: null
 
           ok(tweets)
+
+  ###
+  # Performs a GET request to a Twitter URL endpoint.
+  ###
+  get: (url, options, callback) ->
+    @twitter.get url, options, callback
