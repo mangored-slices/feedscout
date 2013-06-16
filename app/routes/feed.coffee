@@ -1,6 +1,7 @@
 Q = require 'q'
 app = require '../..'
 _ = require 'underscore'
+Entry = require '../../lib/models/entry'
 Account = require '../../lib/models/account'
 FeedManager = require '../../lib/feed_manager'
 {run, local} = require '../../lib/express-decorators'
@@ -8,25 +9,22 @@ FeedManager = require '../../lib/feed_manager'
 # ----
 
 app.get "/feed.json", run (req, res, next) ->
+  doFetch = !! req.query.refresh
 
   Account.findAll()
 
   .then (@accounts) =>
     @feed = new FeedManager(accounts)
-    @feed.fetch()
+    @feed.fetch()  if doFetch
 
   .then =>
     @feed.get()
 
   .then (@entries) =>
-    data = {
-      range: {
-        from: _(@entries).last().date,
-        to: _(@entries).first().date
-      }
-      entries: @entries
-    }
+    Entry.toFeedJSON(@entries)
+    
+  .then (jsonData) =>
 
-    res.json data
+    res.json jsonData
 
   .then null, next

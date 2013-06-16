@@ -40,7 +40,6 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     # Sets credentials JSON.
     ###
-
     setCredentials: (obj) ->
       @credentials = JSON.stringify(obj)
       this
@@ -48,7 +47,6 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     # Adds more stuff to credentials.
     ###
-
     extendCredentials: (obj) ->
       creds = @getCredentials()
       extend creds, obj
@@ -58,14 +56,12 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     # Returns credentials as a JSON object.
     ###
-
     getCredentials: (obj) ->
       JSON.parse(@credentials) or {}
 
     ###
     # Returns a JSON representation for viewing.
     ###
-
     toJSON: ->
       obj =
         id: @id
@@ -79,7 +75,6 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     # return Feed fetcher
     ###
-
     fetcher: ->
       TwitterFetcher = require("../twitter_fetcher")
       new TwitterFetcher(this)
@@ -87,7 +82,6 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     # These are consumed by toJSON()
     ###
-
     twitter:
       toJSON: ->
         creds = @getCredentials()
