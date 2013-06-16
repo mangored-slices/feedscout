@@ -21,7 +21,7 @@ describe 'Twitter Fetcher', ->
       tweet = @data[2]
       assert.equal tweet.url, 'https://twitter.com/john/status/2002'
       assert.equal tweet.text, 'Hello world 2'
-      assert.equal tweet.date, +Moment('2013-01-01')
+      assert.equal +tweet.date, +Moment('2013-01-01')
       assert.equal tweet.fullText, null
 
     it 'should have called .get properly', ->

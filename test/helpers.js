@@ -3,9 +3,12 @@
  */
 global.pt = function(fn) {
   return function(done) {
-    fn.apply(this).then(
+    var promise = fn.apply(this);
+    if (!promise.then) return done(new Error("Object "+promise+" is not a promise"));
+
+    promise.then(
       function(data) { done(undefined, data); },
-      function(err) { done(new Error("Promised failed: " + err)); });
+      function(err) { done(err); });
   };
 };
 

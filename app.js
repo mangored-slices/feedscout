@@ -1,4 +1,5 @@
-require('source-map-support').install() ;
+require('q').longStackSupport = true;
+require('source-map-support').install();
 
 var app = module.exports = require('express')();
 require('expo')(app, __dirname);

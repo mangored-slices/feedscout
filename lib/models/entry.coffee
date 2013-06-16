@@ -6,6 +6,7 @@ module.exports = Entry = app.sequelize().define("Entry",
   accountId: Sq.STRING
   postType: Sq.STRING
 
+  date: Sq.DATE
   image: Sq.STRING
   text: Sq.TEXT
   fulltext: Sq.TEXT

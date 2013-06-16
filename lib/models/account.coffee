@@ -30,6 +30,7 @@ Account = module.exports = app.sequelize().define "Account",
   name: Sq.STRING
   service: Sq.STRING
   credentials: {type: Sq.TEXT, defaultValue: "{}"}
+  lastUpdated: Sq.DATE
 
 ,
   tableName: "accounts"
