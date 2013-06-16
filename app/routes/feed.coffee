@@ -35,7 +35,7 @@ Feed =
 
 # ----------------------------------------------------------------------------
 app.get "/feed.json",
-  Feed.fetch
+  Feed.show
 
 app.get "/sources.json",
   Sources.get,
