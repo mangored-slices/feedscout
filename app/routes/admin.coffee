@@ -6,12 +6,16 @@ app = require("../..")
 
 
 Admin =
-  # ----------------------------------------------------------------------------
-  # Actions
 
+  ###
+  # GET /admin/accounts
+  ###
   index: (req, res) ->
     res.render "accounts/index"
 
+  ###
+  # GET /admin/accounts/new
+  ###
   newTwitter: (req, res) ->
     res.locals.account = Account.build(
       service: "twitter"
@@ -19,11 +23,17 @@ Admin =
     )
     res.render "accounts/new-twitter"
 
+  ###
+  # GET /admin/accounts/:id
+  ###
   show: (req, res) ->
     account = res.locals.account
 
     res.render "accounts/show-#{account.service}"
 
+  ###
+  # GET /admin/accounts/new
+  ###
   create: (req, res) ->
     data = req.body.account
 
@@ -38,6 +48,9 @@ Admin =
       ).error ->
         res.render "accounts/new-#{service}"
 
+  ###
+  # DELETE /admin/accounts/:id
+  ###
   destroy: (req, res, next) ->
     account = res.locals.account
 
@@ -51,25 +64,20 @@ Admin =
 
   ###
   # Retrieves an account for editing.
-  # Sets `locals.account`
   ###
+  getAccount: E.local 'account', (req, res) ->
+    Account.find(req.params.id)
 
-  getAccount: (req, res, next) ->
-    id = req.params.id
-
-    Account.find(id)
-      .error((e) -> next e)
-      .success (account) ->
-        return next(404)  unless account
-
-        res.locals.account = account
-        next()
+  ###
+  # Retrieves the list of accounts for indexing
+  ###
+  getAccounts: E.local 'accounts', (req, res) ->
+    Account.findAll()
 
   ###
   # (Filter) ensures the account is of a given service.
   # Useful for OAuth callbacks.
   ###
-
   ensureAccountIs: (service) ->
     (req, res, next) ->
       account = res.locals.account
@@ -78,19 +86,6 @@ Admin =
         return next(new Error("Wrong service (#{account.service} is not #{service})"))
 
       next()
-
-  ###
-  # Retrieves the list of accounts for indexing
-  # Sets `locals.accounts`
-  ###
-
-  getAccounts: (req, res, next) ->
-    Account.findAll()
-      .error((e) -> next e)
-      .success (accounts) ->
-        res.locals.accounts = accounts
-        next()
-
 
 # ----------------------------------------------------------------------------
 

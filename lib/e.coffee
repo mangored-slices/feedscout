@@ -12,6 +12,7 @@ module.exports = E =
     return (req, res, next) ->
       fn.apply(res.locals, arguments).then(
         (data) ->
+          return next(404) if !data
           res.locals[name] = data
           next()
       , next)
