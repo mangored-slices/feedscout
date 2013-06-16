@@ -28,6 +28,30 @@ describe 'FeedManager', ->
         'https://twitter.com/ryu/status/2001'
       ])
 
+  describe '/feed.json', ->
+    before Setup.loadApp
+    beforeEach (done) ->
+      request(app)
+        .get('/feed.json')
+        .expect 200, (err, data) =>
+          @data = JSON.parse(data.text)
+          done()
+
+    it 'should right number of values', ->
+      assert.lengthOf @data, 6
+
+    it 'should right urls', ->
+      urls = _(@data).pluck('url')
+      assert.equal json(urls), json([
+        'https://twitter.com/ken/status/2006'
+        'https://twitter.com/ken/status/2005'
+        'https://twitter.com/ken/status/2004'
+        'https://twitter.com/ryu/status/2003'
+        'https://twitter.com/ryu/status/2002'
+        'https://twitter.com/ryu/status/2001'
+      ])
+
+
   # ----
 
   beforeEach pt ->
