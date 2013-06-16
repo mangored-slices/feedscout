@@ -17,6 +17,23 @@ describe 'FeedManager', ->
       assert.equal +entries[0].date, +Moment("05/10/2013").toDate()
       assert.equal +entries[10].date, +Moment("05/20/2013").toDate()
 
+  describe '.get', ->
+    it '.get()', pt ->
+      @manager = new FeedManager([ @twitter, {id: 2} ])
+      @manager.get()
+      .then (entries) ->
+        assert.lengthOf entries, 11
+        assert.equal entries[0].text, "Hello, May 20"
+        assert.equal entries[10].text, "Hello, May 10"
+
+    it '.get(5)', pt ->
+      @manager = new FeedManager([ @twitter, {id: 2} ])
+      @manager.get(5)
+      .then (entries) ->
+        assert.lengthOf entries, 5
+        assert.equal entries[0].text, "Hello, May 20"
+        assert.equal entries[4].text, "Hello, May 16"
+
   describe 'replace old tweets', ->
     beforeEach pt ->
       @manager = new FeedManager([ @twitter ])

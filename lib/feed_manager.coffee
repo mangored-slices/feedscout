@@ -21,6 +21,7 @@ module.exports = class FeedManager
   # Returns a promise; promise is fulfilled with nothing
   ###
   sync: (account, entries) ->
+
     # Get old entries
     Q.try ->
       entries = _(entries).sortBy (item) -> +Moment(item.date)
@@ -47,4 +48,6 @@ module.exports = class FeedManager
         ).save()
 
   # Get latest `n` stories from given accounts.
+  # Returns a promise.
   get: (n=20) ->
+    Entry.findAll(where: ["accountId IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC")
