@@ -11,9 +11,8 @@ function generate(pwd) {
   var hashify = require('../../lib/utils').hashify;
   var digest = hashify(pwd);
 
-  console.log('# Save this as config/admin.yml');
-  console.log('');
-  console.log('default:');
-  console.log('  username: "admin"');
-  console.log('  password: "'+digest+'"');
+  process.stdout.write('# Save this as config/admin.yml\n\n');
+  process.stdout.write('default:\n');
+  process.stdout.write('  username: "admin"\n');
+  process.stdout.write('  password: "'+digest+'"\n');
 }
