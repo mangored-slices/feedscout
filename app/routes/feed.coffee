@@ -15,6 +15,11 @@ app.get "/feed.json", run (req, res, next) ->
 
   .then (@accounts) =>
     @feed = new FeedManager(accounts)
+    doFetch ||= @feed.age() > 3600000
+
+    if doFetch
+      app.log.info "Refreshing feed,"
+
     @feed.fetch()  if doFetch
 
   .then =>

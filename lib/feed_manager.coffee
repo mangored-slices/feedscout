@@ -59,6 +59,10 @@ module.exports = class FeedManager
     dates = _(@accounts).pluck('lastUpdated')
     _(dates).min()
 
+  # Age in miliseconds
+  age: ->
+    (+new Date() - @lastUpdated())
+
   # Get latest `n` stories from given accounts.
   # Returns a promise.
   get: (n=20) ->
