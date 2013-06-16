@@ -1,20 +1,14 @@
-require('mocha-as-promised')();
-// Chai.js (http://chaijs.com/)
+// Globals/packages
 var chai = require('chai');
 global.assert = chai.assert;
 global.expect = chai.expect;
-chai.should();
-
-// Supertest (https://github.com/visionmedia/supertest)
 global.request = require('supertest');
-
 global.Q = require('q');
-
-// Load the app
 global.app = require('../app');
-app.set('env', 'test');
-global.wrap = require('../lib/utils').wrap;
 
+// Initialize
+app.set('env', 'test');
+chai.should();
 require('./helpers');
 
 /**

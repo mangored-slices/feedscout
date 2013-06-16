@@ -1,39 +1,34 @@
 Setup = require "./setup"
 Account = require("../lib/models/account")
 Entry = require("../lib/models/entry")
+_ = require("underscore")
 
 describe "Entries", ->
   beforeEach Setup.sync
+
+  it "Feed", pt ->
+    Entry.findAll()
+    .then (entry) -> entry[0].getAccount()
+    .then (account) ->
+      assert.equal json(@twitter), json(account)
 
   beforeEach pt ->
     Account.build
       service: "twitter"
       name: "mytwitter"
-    .setCredentials
-      username: "rstacruz"
-      displayName: "Rico Sta. Cruz"
-      photoUrl: "http://imgur.com/a.jpg"
     .save()
+    .then (@twitter) =>
 
   beforeEach pt ->
     Account.build
       service: "instagram"
       name: "myinstagram"
-    .setCredentials
-      username: "ricostacruz"
-      displayName: "Rico Sta. Cruz"
-      photoUrl: "http://imgur.com/b.jpg"
     .save()
+    .then (@instagram) =>
 
   beforeEach pt ->
-    Account.findAll()
-    .then (@accounts) =>
-
-  beforeEach pt ->
-    Entry.build(text: 'hello', accountId: @accounts[0].id).save()
-
-  it "Feed", pt ->
-    Entry.findAll()
-    .then((entry) -> entry[0].getAccount())
-    .then (account) ->
-      assert.equal json(@accounts[0]), json(account)
+    Q.all _(30).times (n) ->
+      Entry.build
+        text: "hello #{n}"
+        accountId: @twitter.id
+      .save()
