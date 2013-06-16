@@ -1,6 +1,7 @@
 Q = require 'q'
 _ = require 'underscore'
 Moment = require 'moment'
+Account = require './models/account'
 Entry = require './models/entry'
 
 module.exports = class FeedManager
@@ -50,4 +51,4 @@ module.exports = class FeedManager
   # Get latest `n` stories from given accounts.
   # Returns a promise.
   get: (n=20) ->
-    Entry.findAll(where: ["accountId IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC")
+    Entry.findAll(where: ["accountId IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC", include: [ Account ])

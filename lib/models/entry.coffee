@@ -18,27 +18,24 @@ module.exports = Entry = app.sequelize().define("Entry",
   classMethods:
 
     toFeedJSON: (entries) ->
-      Q.all(entries.map (e) -> e.toFeedJSON())
-      .then (entryData) ->
-        data = {
-          range: {
-            from: _(entries).last()?.date,
-            to: _(entries).first()?.date
-          }
-          entries: entryData
+      data = {
+        range: {
+          from: _(entries).last()?.date,
+          to: _(entries).first()?.date
         }
+        entries: entries.map (e) -> e.toFeedJSON()
+      }
 
   instanceMethods:
 
+    # Assumes eager-loaded source
     toFeedJSON: ->
-      @getAccount()
-      .then (account) =>
-        source: account.toJSON()
-        date: Moment(@date).format()
-        image: @image
-        text: @text
-        fulltext: @fulltext
-        url: @url
+      source: @account.toJSON()
+      date: Moment(@date).format()
+      image: @image
+      text: @text
+      fulltext: @fulltext
+      url: @url
 )
 
 Account = require("./account")
