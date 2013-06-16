@@ -15,7 +15,7 @@ module.exports = class FeedManager
       ).then (feeds) =>
         # Combine into one feed
         feed = _(feeds).flatten()
-        feed = _(feed).sortBy (item) -> item.date
+        feed = _(feed).sortBy (item) -> 0 - +item.date
 
         # Push to database and return the value
         @sync(feed)

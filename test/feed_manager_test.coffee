@@ -20,12 +20,12 @@ describe 'FeedManager', ->
     it 'should right urls', ->
       urls = _(@data).pluck('url')
       assert.equal json(urls), json([
-        'https://twitter.com/ryu/status/2001'
-        'https://twitter.com/ryu/status/2002'
-        'https://twitter.com/ryu/status/2003'
-        'https://twitter.com/ken/status/2004'
-        'https://twitter.com/ken/status/2005'
         'https://twitter.com/ken/status/2006'
+        'https://twitter.com/ken/status/2005'
+        'https://twitter.com/ken/status/2004'
+        'https://twitter.com/ryu/status/2003'
+        'https://twitter.com/ryu/status/2002'
+        'https://twitter.com/ryu/status/2001'
       ])
 
   # ----
