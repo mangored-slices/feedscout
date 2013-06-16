@@ -8,9 +8,9 @@ describe "Entries", ->
 
   it "Feed", pt ->
     Entry.findAll()
-    .then (entry) -> entry[0].getAccount()
-    .then (account) ->
-      assert.equal json(@twitter), json(account)
+    .then (entry) => entry[0].getAccount()
+    .then (account) =>
+      assert.equal @twitter.id, account.id
 
   beforeEach pt ->
     Account.build
@@ -27,7 +27,7 @@ describe "Entries", ->
     .then (@instagram) =>
 
   beforeEach pt ->
-    Q.all _(30).times (n) ->
+    Q.all _(30).times (n) =>
       Entry.build
         text: "hello #{n}"
         accountId: @twitter.id
