@@ -78,10 +78,10 @@ Admin =
     service = account.service
 
     account.save()
-      .success (->
-        res.redirect "/admin/accounts/#{account.id}"
-      ).error ->
-        res.render "accounts/new-#{service}"
+    .success ->
+      res.redirect "/admin/accounts/#{account.id}"
+    .error ->
+      res.render "accounts/new-#{service}"
 
   ###
   # DELETE /admin/accounts/:id
