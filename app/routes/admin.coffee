@@ -1,12 +1,47 @@
 Twitter = require("../filters/twitter")
-AdminFilters   = require("../filters/admin")
+AdminAuth = require("../filters/admin_auth")
 Account = require("../../lib/models/account")
 E = require('../../lib/e')
 app = require("../..")
 
+# ----------------------------------------------------------------------------
+run = ->
+  app.all "/admin*",
+    AdminAuth.authenticate
 
+  app.get "/admin",
+    E.redirect("/admin/accounts")
+
+  app.get "/admin/accounts",
+    Admin.getAccounts,
+    Admin.index
+
+  app.get "/admin/accounts/new/twitter",
+    Admin.newTwitter
+
+  app.get "/admin/accounts/:id",
+    Admin.getAccount,
+    Admin.show
+
+  app.post "/admin/accounts",
+    Admin.create
+
+  app.del "/admin/accounts/:id",
+    Admin.getAccount,
+    Admin.destroy
+
+  app.get "/admin/accounts/:id/auth/twitter",
+    Admin.getAccount,
+    Admin.ensureAccountIs("twitter"),
+    Twitter.auth
+
+  app.get "/admin/accounts/:id/auth/twitter/callback",
+    Admin.getAccount,
+    Admin.ensureAccountIs("twitter"),
+    Twitter.callback
+
+# ----------------------------------------------------------------------------
 Admin =
-
   ###
   # GET /admin/accounts
   ###
@@ -87,38 +122,4 @@ Admin =
 
       next()
 
-# ----------------------------------------------------------------------------
-
-app.all "/admin*",
-  AdminFilters.authenticate
-
-app.get "/admin",
-  E.redirect("/admin/accounts")
-
-app.get "/admin/accounts",
-  Admin.getAccounts,
-  Admin.index
-
-app.get "/admin/accounts/new/twitter",
-  Admin.newTwitter
-
-app.get "/admin/accounts/:id",
-  Admin.getAccount,
-  Admin.show
-
-app.post "/admin/accounts",
-  Admin.create
-
-app.del "/admin/accounts/:id",
-  Admin.getAccount,
-  Admin.destroy
-
-app.get "/admin/accounts/:id/auth/twitter",
-  Admin.getAccount,
-  Admin.ensureAccountIs("twitter"),
-  Twitter.auth
-
-app.get "/admin/accounts/:id/auth/twitter/callback",
-  Admin.getAccount,
-  Admin.ensureAccountIs("twitter"),
-  Twitter.callback
+run()

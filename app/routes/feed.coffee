@@ -4,6 +4,15 @@ app = require('../..')
 E = require('../../lib/e')
 
 # ----------------------------------------------------------------------------
+run = ->
+  app.get "/feed.json",
+    Feed.fetch
+
+  app.get "/sources.json",
+    Sources.get,
+    Sources.show
+
+# ----------------------------------------------------------------------------
 # Sources controller
 
 Sources =
@@ -33,11 +42,4 @@ Feed =
 
     .fail(next)
 
-# ----------------------------------------------------------------------------
-
-app.get "/feed.json",
-  Feed.fetch
-
-app.get "/sources.json",
-  Sources.get,
-  Sources.show
+run()
