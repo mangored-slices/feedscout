@@ -19,6 +19,15 @@ run = ->
   app.get "/admin/accounts/new/twitter",
     Admin.newTwitter
 
+  app.get "/admin/accounts/new/flickr",
+    redirect("/admin")
+
+  app.get "/admin/accounts/new/instagram",
+    redirect("/admin")
+
+  app.get "/admin/accounts/new/tumblr",
+    redirect("/admin")
+
   app.get "/admin/accounts/:id",
     Admin.getAccount,
     Admin.show
@@ -39,6 +48,10 @@ run = ->
     Admin.getAccount,
     Admin.ensureAccountIs("twitter"),
     Twitter.callback
+
+  app.get '/admin/accounts/backup',
+    Admin.getAccounts,
+    Admin.showBackup
 
 # ----------------------------------------------------------------------------
 Admin =
@@ -93,6 +106,16 @@ Admin =
       res.redirect "/admin/accounts"
     ).error (err) ->
       next err
+
+  ###
+  # GET /admin/accounts/backup
+  ####
+  showBackup: (req, res, next) ->
+    data = {
+      accounts: res.locals.accounts.map (a) -> a.toBackupJSON()
+    }
+
+    res.json data
 
   # ----------------------------------------------------------------------------
   # Filters

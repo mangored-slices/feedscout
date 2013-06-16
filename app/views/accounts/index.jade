@@ -21,16 +21,22 @@ block content
               = " Edit"
 
   .btn-group
-    a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-      = " New account "
+    a.btn.dropdown-toggle.btn-primary(data-toggle='dropdown', href='#')
+      i.icon.icon-plus.icon-white
+      = " New account  "
       span.caret
 
     ul.dropdown-menu
       li
-        a(href='/admin/accounts/new') Flickr
+        a(href='/admin/accounts/new/flickr') Flickr
       li
         a(href='/admin/accounts/new/twitter') Twitter
       li
-        a(href='/admin/accounts/new') Instagram
+        a(href='/admin/accounts/new/instagram') Instagram
       li
-        a(href='/admin/accounts/new') Tumblr
+        a(href='/admin/accounts/new/tumblr') Tumblr
+
+  =" "
+  a.btn(href='/admin/backup')
+    i.icon.icon-download
+    = " Get backup"

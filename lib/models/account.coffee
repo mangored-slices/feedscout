@@ -95,4 +95,13 @@ Account = module.exports = app.sequelize().define "Account",
         displayName: creds.displayName
         photo: creds.photo
 
+    ###
+    # For backup purposes
+    ###
+    toBackupJSON: ->
+      name: @name
+      service: @service
+      credentials: @getCredentials()
+      lastUpdated: Moment(@lastUpdated)?.format()
+
 Entry = require('./entry')
