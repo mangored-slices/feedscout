@@ -1,3 +1,4 @@
+require('mocha-as-promised')();
 // Chai.js (http://chaijs.com/)
 var chai = require('chai');
 global.assert = chai.assert;
@@ -16,14 +17,22 @@ app.load('test');
 global.wrap = require('../lib/utils').wrap;
 
 /**
- * Promise test helper
+ * Promise test helper: allow
  */
 global.pt = function(fn) {
   return function(done) {
     fn().then(
       function(data) { done(undefined, data); },
-      function(err) { done(err); });
+      function(err) { done(new Error("Promised failed: " + err)); });
   };
+};
+
+/**
+ * JSON helper - great for comparisons
+ */
+
+global.json = function(obj) {
+  return JSON.stringify(obj);
 };
 
 /**

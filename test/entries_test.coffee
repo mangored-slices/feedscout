@@ -1,7 +1,8 @@
 Setup = require "./setup"
 Account = require("../lib/models/account")
+Entry = require("../lib/models/entry")
 
-describe "Accounts", ->
+describe "Entries", ->
   beforeEach Setup.sync
 
   beforeEach pt ->
@@ -24,14 +25,15 @@ describe "Accounts", ->
       photoUrl: "http://imgur.com/b.jpg"
     .save()
 
-  it "/sources.json", (done) ->
-    request(app)
-      .get("/sources.json")
-      .expect 200, (err, data) ->
-        result = data.res.body
-        assert.equal 2, result.sources.length
-        assert.equal "mytwitter", result.sources[0].name
-        assert.equal "twitter",   result.sources[0].service
-        assert.equal "rstacruz",  result.sources[0].username
-        assert.equal "instagram", result.sources[1].service
-        done()
+  beforeEach pt ->
+    Account.findAll()
+    .then (@accounts) =>
+
+  beforeEach pt ->
+    Entry.build(text: 'hello', accountId: @accounts[0].id).save()
+
+  it "Feed", pt ->
+    Entry.findAll()
+    .then((entry) -> entry[0].getAccount())
+    .then (account) ->
+      assert.equal json(@accounts[0]), json(account)
