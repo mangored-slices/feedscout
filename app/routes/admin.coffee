@@ -1,7 +1,7 @@
 Twitter = require("../filters/twitter")
 AdminAuth = require("../filters/admin_auth")
 Account = require("../../lib/models/account")
-E = require('../../lib/e')
+{redirect, local} = require('../../lib/express-decorators')
 app = require("../..")
 
 # ----------------------------------------------------------------------------
@@ -10,7 +10,7 @@ run = ->
     AdminAuth.authenticate
 
   app.get "/admin",
-    E.redirect("/admin/accounts")
+    redirect("/admin/accounts")
 
   app.get "/admin/accounts",
     Admin.getAccounts,
@@ -100,13 +100,13 @@ Admin =
   ###
   # Retrieves an account for editing.
   ###
-  getAccount: E.local 'account', (req, res) ->
+  getAccount: local 'account', (req, res) ->
     Account.find(req.params.id)
 
   ###
   # Retrieves the list of accounts for indexing
   ###
-  getAccounts: E.local 'accounts', (req, res) ->
+  getAccounts: local 'accounts', (req, res) ->
     Account.findAll()
 
   ###

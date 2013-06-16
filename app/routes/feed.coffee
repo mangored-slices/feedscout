@@ -1,25 +1,16 @@
 Account = require('../../lib/models/account')
 Q = require('q')
 app = require('../..')
-E = require('../../lib/e')
-
-# ----------------------------------------------------------------------------
-run = ->
-  app.get "/feed.json",
-    Feed.fetch
-
-  app.get "/sources.json",
-    Sources.get,
-    Sources.show
+{run, local} = require('../../lib/express-decorators')
 
 # ----------------------------------------------------------------------------
 # Sources controller
 
 Sources =
-  get: E.local 'accounts', ->
+  get: local 'accounts', ->
     Account.findAll()
 
-  show: E.run (req, res) ->
+  show: run (req, res) ->
     res.json sources: @accounts
 
 # ----------------------------------------------------------------------------
@@ -42,4 +33,10 @@ Feed =
 
     .fail(next)
 
-run()
+# ----------------------------------------------------------------------------
+app.get "/feed.json",
+  Feed.fetch
+
+app.get "/sources.json",
+  Sources.get,
+  Sources.show
