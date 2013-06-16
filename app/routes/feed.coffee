@@ -1,44 +1,43 @@
 Account = require('../../lib/models/account')
 Q = require('q')
 app = require('../..')
+E = require('../../lib/e')
 
 # ----------------------------------------------------------------------------
+# Sources controller
 
-sources = (req, res, next) ->
-
-  Q.when(
+Sources =
+  get: E.local 'accounts', ->
     Account.findAll()
 
-  ).then (accounts) ->
-    res.json sources: accounts
+  show: E.run (req, res) ->
+    res.json sources: @accounts
 
-  .fail(next)
+# ----------------------------------------------------------------------------
+# Feed controller
 
-###
-# Lol ionno
-###
+Feed =
+  fetch: (name) ->
+    Q.when(
+      Account.find(where: { name: name })
 
-fetchFeed = (name) ->
-  Q.when(
-    Account.find(where: { name: name })
+    ).then (twitter) ->
+      twitter.fetcher().fetch()
 
-  ).then (twitter) ->
-    twitter.fetcher().fetch()
+  show: (req, res, next) ->
+    Q.all([
+      Feed.fetch('twitter')
+    ])
+    .spread (feeds) ->
+      res.json feeds
 
-showFeed = (req, res, next) ->
-
-  Q.all([
-    fetchFeed('twitter')
-  ])
-  .spread (feeds) ->
-    res.json feeds
-
-  .fail(next)
+    .fail(next)
 
 # ----------------------------------------------------------------------------
 
 app.get "/feed.json",
-  showFeed
+  Feed.fetch
 
 app.get "/sources.json",
-  sources
+  Sources.get,
+  Sources.show
