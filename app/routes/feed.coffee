@@ -18,9 +18,8 @@ app.get "/feed.json", run (req, res, next) ->
     doFetch ||= @feed.age() > 3600000
 
     if doFetch
-      app.log.info "Refreshing feed,"
-
-    @feed.fetch()  if doFetch
+      app.log.info "Refreshing feed"
+      @feed.fetch()
 
   .then =>
     @feed.get()

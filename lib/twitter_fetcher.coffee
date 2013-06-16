@@ -41,7 +41,7 @@ module.exports = class TwitterFetcher
           return err(data)  if data.constructor is Error
 
           tweets = data.map (tweet) =>
-            source:   @account.toJSON()
+            accountId: @account.id
             date:     Moment(tweet.created_at).toDate()
             url:      "https://twitter.com/#{user}/status/#{tweet.id_str}"
             text:     tweet.text

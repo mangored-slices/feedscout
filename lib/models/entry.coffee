@@ -23,6 +23,7 @@ module.exports = Entry = app.sequelize().define("Entry",
           from: _(entries).last()?.date,
           to: _(entries).first()?.date
         }
+        sources: _.uniq((entries.map (e) -> e.account.toJSON()), false, (a) -> a.id)
         entries: entries.map (e) -> e.toFeedJSON()
       }
 

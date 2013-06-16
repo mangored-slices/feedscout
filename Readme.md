@@ -26,3 +26,10 @@ Change admin password
 ---------------------
 
     $ ./run gen-admin
+
+API
+---
+
+    $ curl http://feeds.app.com/sources.json
+
+    $ curl http://feeds.app.com/feed.json

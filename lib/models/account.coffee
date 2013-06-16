@@ -3,7 +3,7 @@ Sq      = require("sequelize")
 extend  = require("util")._extend
 Twitter = require("twitter")
 _       = require("underscore")
-moment  = require("moment")
+Moment  = require("moment")
 
 ###
 # An account.
@@ -67,6 +67,7 @@ Account = module.exports = app.sequelize().define "Account",
         id: @id
         name: @name
         service: @service
+        lastUpdated: Moment(@lastUpdated).format()
 
       service = @service
       extend obj, this[service].toJSON.apply(this)  if this[service]

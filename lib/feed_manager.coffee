@@ -41,11 +41,12 @@ module.exports = class FeedManager
     .then ->
       Q.all entries.map (entry) ->
         Entry.build(
-          accountId: entry.source.id
+          accountId: entry.accountId
           date: entry.date
           text: entry.text
           image: entry.image
           fulltext: entry.fulltext
+          url: entry.url
         ).save()
 
     # Touch

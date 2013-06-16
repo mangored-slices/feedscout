@@ -1,5 +1,8 @@
 style
-  body { font-family: sans-serif; padding: 40px; line-height: 1.5; font-size: 11pt; }
+  body { font-family: sans-serif; padding: 40px; line-height: 1.7; font-size: 10pt; color: #505060; }
+  a { text-decoration: none; }
+  a:visited, a { color: #d31; }
+  dd { font-style: italic; font-family: georgia, serif; }
 dl
   dt
     a(href='/feed.json')
@@ -8,7 +11,13 @@ dl
     | List latest entries
 dl
   dt
+    a(href='/feed.json?refresh=1')
+      /feed.json?refresh=1
+  dd
+    | List latest entries, fetching new ones (use with moderation)
+dl
+  dt
     a(href='/sources.json')
       /sources.json
   dd
-    | Sources
+    | List down account sources
