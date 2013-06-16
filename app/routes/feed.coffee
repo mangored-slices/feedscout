@@ -1,42 +1,22 @@
-Account = require('../../lib/models/account')
-Q = require('q')
-app = require('../..')
-{run, local} = require('../../lib/express-decorators')
+Q = require 'q'
+app = require '../..'
+Account = require '../../lib/models/account'
+FeedManager = require '../../lib/feed_manager'
+{run, local} = require '../../lib/express-decorators'
 
-# ----------------------------------------------------------------------------
-# Sources controller
+# ----
 
-Sources =
-  get: local 'accounts', ->
-    Account.findAll()
+app.get "/feed.json", run (req, res, next) ->
 
-  show: run (req, res) ->
-    res.json sources: @accounts
+  Account.findAll()
 
-# ----------------------------------------------------------------------------
-# Feed controller
+  .then (@accounts) =>
+    console.log ("Fetch")
+    @feed = new FeedManager(accounts)
+    @feed.fetch()
 
-Feed =
-  fetch: (name) ->
-    Q.when(
-      Account.find(where: { name: name })
+  .then (@data) =>
+    console.log ("Here we go")
+    res.json @data
 
-    ).then (twitter) ->
-      twitter.fetcher().fetch()
-
-  show: (req, res, next) ->
-    Q.all([
-      Feed.fetch('twitter')
-    ])
-    .spread (feeds) ->
-      res.json feeds
-
-    .fail(next)
-
-# ----------------------------------------------------------------------------
-app.get "/feed.json",
-  Feed.show
-
-app.get "/sources.json",
-  Sources.get,
-  Sources.show
+  .then null, next
