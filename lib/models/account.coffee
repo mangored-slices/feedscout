@@ -42,6 +42,7 @@ Account = module.exports = app.sequelize().define "Account",
 
     setCredentials: (obj) ->
       @credentials = JSON.stringify(obj)
+      this
 
     ###
     # Adds more stuff to credentials.
@@ -51,6 +52,7 @@ Account = module.exports = app.sequelize().define "Account",
       creds = @getCredentials()
       extend creds, obj
       @credentials = JSON.stringify(creds)
+      this
 
     ###
     # Returns credentials as a JSON object.
@@ -92,3 +94,4 @@ Account = module.exports = app.sequelize().define "Account",
         displayName: creds.displayName
         photo: creds.photo
 
+Entry = require('./entry')
