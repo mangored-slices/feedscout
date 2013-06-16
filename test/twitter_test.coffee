@@ -40,10 +40,6 @@ describe 'Twitter Fetcher', ->
       name: "mytwitter"
     .setCredentials
       username: 'john'
-      consumerKey: 'aaa'
-      consumerSecret: 'bbb'
-      accessToken: 'ccc'
-      accessTokenSecret: 'ddd'
     .save()
     .then (@twitter) =>
 

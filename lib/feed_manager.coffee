@@ -1,18 +1,29 @@
-Q = require('q')
+Q = require 'q'
+_ = require 'underscore'
 
-class FeedManager
+module.exports = class FeedManager
   constructor: (@accounts) ->
 
+  ###
+  # Fetches new updates from given account.
+  ###
   fetch: ->
-    Q.all(
-      @accounts.map (account) -> account.fetcher().fetch()
+    Q.promise (ok, fail) =>
+      Q.all(
+        @accounts.map (account) -> account.fetcher().fetch()
 
-    ).then (feeds) =>
-      console.log(feeds)
-      # Combine feeds
-      # sync
+      ).then (feeds) =>
+        # Combine into one feed
+        feed = _(feeds).flatten()
+        feed = _(feed).sortBy (item) -> item.date
 
-  sync: ->
+        # Push to database and return the value
+        @sync(feed)
+        ok(feed)
+
+      .done(fail)
+
+  sync: (feed) ->
 
   # Get latest `n` stories from given accounts.
   get: (n=20) ->
