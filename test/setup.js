@@ -3,6 +3,7 @@ var chai = require('chai');
 global.assert = chai.assert;
 global.expect = chai.expect;
 global.request = require('supertest');
+global.sinon = require('sinon');
 global.Q = require('q');
 global.app = require('../app');
 

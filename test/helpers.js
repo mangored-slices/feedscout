@@ -3,7 +3,7 @@
  */
 global.pt = function(fn) {
   return function(done) {
-    fn().then(
+    fn.apply(this).then(
       function(data) { done(undefined, data); },
       function(err) { done(new Error("Promised failed: " + err)); });
   };
