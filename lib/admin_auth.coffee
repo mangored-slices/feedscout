@@ -1,5 +1,5 @@
-app     = require('../..')
-hash    = require('../../lib/utils').hashify
+app     = require('..')
+hash    = require('../lib/utils').hashify
 express = require('express')
 
 module.exports = AdminAuth = {}

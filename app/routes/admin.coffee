@@ -1,5 +1,5 @@
 Twitter = require("../filters/twitter")
-AdminAuth = require("../filters/admin_auth")
+AdminAuth = require("../../lib/admin_auth")
 Account = require("../../lib/models/account")
 {redirect, local} = require('../../lib/express-decorators')
 app = require("../..")
