@@ -12,8 +12,7 @@ global.Q = require('q');
 
 // Load the app
 global.app = require('../app');
-app.load('test');
-
+app.set('env', 'test');
 global.wrap = require('../lib/utils').wrap;
 
 /**
@@ -33,6 +32,10 @@ global.pt = function(fn) {
 
 global.json = function(obj) {
   return JSON.stringify(obj);
+};
+
+exports.loadApp = function() {
+  app.load('test');
 };
 
 /**

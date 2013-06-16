@@ -1,6 +1,8 @@
 Setup = require("./setup")
+
 describe "App", ->
 
+  before Setup.loadApp
   beforeEach Setup.sync
 
   it "Homepage should work", (done) ->

@@ -2,6 +2,7 @@ Setup = require "./setup"
 Account = require("../lib/models/account")
 
 describe "Accounts", ->
+  before Setup.loadApp
   beforeEach Setup.sync
 
   beforeEach pt ->
