@@ -80,6 +80,12 @@ Account = module.exports = app.sequelize().define "Account",
       new TwitterFetcher(this)
 
     ###
+    # Returns time since last updated in miliseconds
+    ###
+    age: ->
+      +new Date() - @lastUpdated
+
+    ###
     # These are consumed by toJSON()
     ###
     twitter:

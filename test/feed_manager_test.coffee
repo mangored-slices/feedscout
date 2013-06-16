@@ -10,7 +10,7 @@ describe 'FeedManager', ->
 
   beforeEach Setup.sync
 
-  describe 'calling .sync()', ->
+  describe '.fetch() (stubbed .sync())', ->
     beforeEach ->
       sinon.stub FeedManager::, 'sync', (account, entries) ->
         Q.promise (ok) -> ok()
@@ -51,6 +51,10 @@ describe 'FeedManager', ->
       .then (entries) ->
         assert.lengthOf entries, 6
 
+  it '.lastUpdated', ->
+    @manager = new FeedManager([ @twitter1, @twitter2 ])
+    assert.equal +@manager.lastUpdated(), +Moment('05/04/2010')
+
   describe '/feed.json', ->
     before Setup.loadApp
 
@@ -63,13 +67,13 @@ describe 'FeedManager', ->
   # ----
 
   beforeEach pt ->
-    Account.build(service: "twitter", name: "mytwitter")
+    Account.build(service: "twitter", name: "mytwitter", lastUpdated: Moment('05/04/2010').toDate())
     .setCredentials(username: 'ryu')
     .save()
     .then (@twitter1) =>
 
   beforeEach pt ->
-    Account.build(service: "twitter", name: "myothertwitter")
+    Account.build(service: "twitter", name: "myothertwitter", lastUpdated: Moment('05/08/2010').toDate())
     .setCredentials(username: 'ken')
     .save()
     .then (@twitter2) =>

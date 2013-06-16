@@ -34,7 +34,7 @@ describe 'FeedManager', ->
         assert.equal entries[0].text, "Hello, May 20"
         assert.equal entries[4].text, "Hello, May 16"
 
-  describe 'replace old tweets', ->
+  describe 'replace old tweets (.sync())', ->
     beforeEach pt ->
       @manager = new FeedManager([ @twitter ])
       @manager.fetch()
@@ -46,6 +46,12 @@ describe 'FeedManager', ->
 
     it 'should have right length', ->
       assert.lengthOf @entries, 13
+
+    it 'should update account last updated info', pt ->
+      Account.find(@twitter.id)
+      .then (account) ->
+        delta = (+new Date() - account.lastUpdated)
+        assert.operator delta, '<', 60000
 
     it 'should have right tweets', ->
       texts = _(@entries).pluck('text')

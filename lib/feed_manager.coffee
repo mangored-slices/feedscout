@@ -48,6 +48,17 @@ module.exports = class FeedManager
           fulltext: entry.fulltext
         ).save()
 
+    # Touch
+    .then ->
+      account.lastUpdated = new Date()
+      account.save()
+
+  # Checks last updated time.
+  # Picks out the one that was updated earliest.
+  lastUpdated: ->
+    dates = _(@accounts).pluck('lastUpdated')
+    _(dates).min()
+
   # Get latest `n` stories from given accounts.
   # Returns a promise.
   get: (n=20) ->
