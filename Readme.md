@@ -8,6 +8,8 @@ Set up config:
 
     $ ./run gen-admin
 
+    $ cp config/database.yml{.example,}
+
 Run:
 
     $ ./run server
