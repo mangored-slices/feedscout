@@ -22,3 +22,5 @@ module.exports = E =
     return (req, res, next) ->
       fn.apply(res.locals, arguments)
 
+  redirect: (url) ->
+    (req, res) -> res.redirect url
