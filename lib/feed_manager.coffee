@@ -1,5 +1,6 @@
 Q = require 'q'
 _ = require 'underscore'
+Moment = require 'moment'
 
 module.exports = class FeedManager
   constructor: (@accounts) ->
@@ -15,7 +16,7 @@ module.exports = class FeedManager
       ).then (feeds) =>
         # Combine into one feed
         feed = _(feeds).flatten()
-        feed = _(feed).sortBy (item) -> 0 - +item.date
+        feed = _(feed).sortBy (item) -> 0 - +Moment(item.date)
 
         # Push to database and return the value
         @sync(feed)

@@ -1,5 +1,6 @@
 _ = require 'underscore'
 Setup = require './setup'
+Moment = require 'moment'
 Account = require '../lib/models/account'
 FeedManager = require '../lib/feed_manager'
 TwitterFetcher = require '../lib/twitter_fetcher'
@@ -30,6 +31,7 @@ describe 'FeedManager', ->
 
   describe '/feed.json', ->
     before Setup.loadApp
+
     beforeEach (done) ->
       request(app)
         .get('/feed.json')
@@ -38,10 +40,19 @@ describe 'FeedManager', ->
           done()
 
     it 'should right number of values', ->
-      assert.lengthOf @data, 6
+      assert.lengthOf @data.entries, 6
+
+    it 'range correct order', ->
+      range = @data.range
+      assert.isTrue Moment(range.from) < Moment(range.to)
+
+    it 'correct range', ->
+      range = @data.range
+      assert.equal _(@data.entries).first().date, range.to
+      assert.equal _(@data.entries).last().date, range.from
 
     it 'should right urls', ->
-      urls = _(@data).pluck('url')
+      urls = _(@data.entries).pluck('url')
       assert.equal json(urls), json([
         'https://twitter.com/ken/status/2006'
         'https://twitter.com/ken/status/2005'

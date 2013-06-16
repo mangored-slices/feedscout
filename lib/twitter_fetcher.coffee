@@ -42,7 +42,7 @@ module.exports = class TwitterFetcher
 
           tweets = data.map (tweet) =>
             source:   @account.toJSON()
-            date:     +Moment(tweet.created_at)
+            date:     Moment(tweet.created_at).format()
             url:      "https://twitter.com/#{user}/status/#{tweet.id_str}"
             text:     tweet.text
             fulltext: null
