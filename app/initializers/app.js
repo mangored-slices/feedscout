@@ -7,6 +7,7 @@ module.exports = function(app) {
 
   app.set('view engine', 'jade');
   app.configure('development', function() {
+    app.set('show errors', true);
     app.use(express.favicon());
     app.use(express.logger('dev'));
   });

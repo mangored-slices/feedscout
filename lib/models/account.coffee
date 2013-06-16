@@ -64,7 +64,6 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     toJSON: ->
       obj =
-        id: @id
         name: @name
         service: @service
         lastUpdated: Moment(@lastUpdated).format()
