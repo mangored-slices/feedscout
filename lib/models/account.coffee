@@ -66,7 +66,7 @@ Account = module.exports = app.sequelize().define "Account",
       obj =
         name: @name
         service: @service
-        lastUpdated: Moment(@lastUpdated).format()
+        lastUpdated: Moment(@lastUpdated)?.format()
 
       service = @service
       extend obj, this[service].toJSON.apply(this)  if this[service]
