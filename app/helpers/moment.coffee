@@ -1,0 +1,1 @@
+exports.Moment = require 'moment'

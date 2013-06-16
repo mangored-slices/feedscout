@@ -7,14 +7,22 @@ block content
     table.table
       thead
         tr
-          th Name
-          th Service
+          th Account
+          th ID
+          th Updated
           th(style='width: 20%; text-align: right')
 
       each account in accounts
         tr
-          td.name= account.name
-          td.service= account.service
+          td.username
+            - if (account.avatar())
+              img(src=account.avatar(), width='50', height='50', style='float: left; margin-right: 10px')
+            strong= account.service
+            br
+            small= account.username()
+          td.name
+            code= account.name
+          td.updated= Moment(account.lastUpdated).fromNow()
           td.actions
             a.btn.btn-small(href='/admin/accounts/'+account.id)
               i.icon-edit
@@ -37,6 +45,6 @@ block content
         a(href='/admin/accounts/new/tumblr') Tumblr
 
   =" "
-  a.btn(href='/admin/backup')
+  a.btn(href='/admin/accounts/backup')
     i.icon.icon-download
     = " Get backup"

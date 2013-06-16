@@ -28,6 +28,10 @@ run = ->
   app.get "/admin/accounts/new/tumblr",
     redirect("/admin")
 
+  app.get '/admin/accounts/backup',
+    Admin.getAccounts,
+    Admin.showBackup
+
   app.get "/admin/accounts/:id",
     Admin.getAccount,
     Admin.show
@@ -48,10 +52,6 @@ run = ->
     Admin.getAccount,
     Admin.ensureAccountIs("twitter"),
     Twitter.callback
-
-  app.get '/admin/accounts/backup',
-    Admin.getAccounts,
-    Admin.showBackup
 
 # ----------------------------------------------------------------------------
 Admin =

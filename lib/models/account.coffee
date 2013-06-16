@@ -104,4 +104,10 @@ Account = module.exports = app.sequelize().define "Account",
       credentials: @getCredentials()
       lastUpdated: Moment(@lastUpdated)?.format()
 
+    username: ->
+      @getCredentials()?.username
+
+    avatar: ->
+      @getCredentials()?.photo
+
 Entry = require('./entry')
