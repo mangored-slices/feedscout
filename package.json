@@ -34,7 +34,8 @@
     "underscore": "~1.4.4",
     "moment": "~2.0.0",
     "q": "~0.9.6",
-    "sinon": "~1.7.2"
+    "sinon": "~1.7.2",
+    "xml-digester": "0.0.3"
   },
   "devDependencies": {
     "mocha": "*",

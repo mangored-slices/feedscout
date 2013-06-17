@@ -1,3 +1,5 @@
+Q = require 'q'
+
 module.exports = class FlickrFetcher
 
   constructor: (account) ->
@@ -12,3 +14,7 @@ module.exports = class FlickrFetcher
     @type = "flickr"
 
     # Flickr-specific
+
+  fetch: ->
+    Q.promise (ok, fail) =>
+      ok()
