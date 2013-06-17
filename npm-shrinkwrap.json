@@ -256,7 +256,7 @@
       }
     },
     "expo-connect_assets": {
-      "version": "0.1.3",
+      "version": "0.1.4",
       "dependencies": {
         "connect-assets": {
           "version": "2.4.3",
@@ -313,7 +313,7 @@
       }
     },
     "expo-sequelize": {
-      "version": "0.1.3",
+      "version": "0.1.4",
       "dependencies": {
         "sequelize": {
           "version": "1.7.0-alpha2",
@@ -364,7 +364,7 @@
       }
     },
     "expo": {
-      "version": "0.1.3",
+      "version": "0.1.4",
       "dependencies": {
         "commander": {
           "version": "1.1.1",
@@ -377,8 +377,9 @@
           }
         },
         "supervisor": {
-          "version": "0.5.2",
-          "from": "supervisor@0.5.x"
+          "version": "0.5.3",
+          "from": "supervisor@0.5.3",
+          "resolved": "https://registry.npmjs.org/supervisor/-/supervisor-0.5.3.tgz"
         },
         "js-yaml": {
           "version": "2.0.5",
@@ -713,8 +714,8 @@
     },
     "twitter": {
       "version": "0.1.18",
-      "from": "twitter@",
-      "resolved": "https://registry.npmjs.org/twitter/-/twitter-0.1.18.tgz",
+      "from": "git://github.com/desmondmorris/node-twitter.git",
+      "resolved": "git://github.com/desmondmorris/node-twitter.git#f69ab77f0dc268da6b590f58cf4f9dd51c6996a7",
       "dependencies": {
         "oauth": {
           "version": "0.9.10",
@@ -722,13 +723,59 @@
         },
         "cookies": {
           "version": "0.3.6",
-          "from": "cookies@>=0.1.6",
-          "resolved": "https://registry.npmjs.org/cookies/-/cookies-0.3.6.tgz"
+          "from": "cookies@>=0.1.6"
         },
         "keygrip": {
           "version": "0.2.2",
-          "from": "keygrip@>=0.1.7",
-          "resolved": "https://registry.npmjs.org/keygrip/-/keygrip-0.2.2.tgz"
+          "from": "keygrip@>=0.1.7"
+        }
+      }
+    },
+    "underscore": {
+      "version": "1.4.4",
+      "from": "underscore@"
+    },
+    "moment": {
+      "version": "2.0.0",
+      "from": "moment@",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.0.0.tgz"
+    },
+    "q": {
+      "version": "0.9.6",
+      "from": "q@",
+      "resolved": "https://registry.npmjs.org/q/-/q-0.9.6.tgz"
+    },
+    "sinon": {
+      "version": "1.7.2",
+      "from": "sinon@",
+      "dependencies": {
+        "buster-format": {
+          "version": "0.5.5",
+          "from": "buster-format@~0.5",
+          "dependencies": {
+            "buster-core": {
+              "version": "0.6.4",
+              "from": "buster-core@>=0.6.2"
+            }
+          }
+        }
+      }
+    },
+    "source-map-support": {
+      "version": "0.1.6",
+      "from": "source-map-support@",
+      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.1.6.tgz",
+      "dependencies": {
+        "source-map": {
+          "version": "0.1.8",
+          "from": "source-map@0.1.8",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.8.tgz",
+          "dependencies": {
+            "amdefine": {
+              "version": "0.0.5",
+              "from": "amdefine@>=0.0.4"
+            }
+          }
         }
       }
     }
