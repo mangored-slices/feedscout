@@ -76,8 +76,9 @@ Account = module.exports = app.sequelize().define "Account",
     # return Feed fetcher
     ###
     fetcher: ->
-      TwitterFetcher = require("../twitter_fetcher")
-      new TwitterFetcher(this)
+      switch @service
+        when 'twitter' then new (require '../twitter_fetcher')(this)
+        when 'flickr' then new (require '../flickr_fetcher')(this)
 
     ###
     # Returns time since last updated in miliseconds
