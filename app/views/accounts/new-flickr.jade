@@ -25,11 +25,22 @@ block content
 
       fieldset
         .control-group
-          label.control-label Flickr username
+          label.control-label Flickr user ID
           .controls
-            input(type='text', name='account[credentials][username]', value=account.getCredentials().username, autofocus)
-
+            input(type='text', name='account[credentials][userId]', value=account.getCredentials().userId, autofocus)
+            br
+            small.muted
+              | This is NOT your username, read below!
       .control-group
         .controls
           button.btn.btn-primary(type='submit') Continue
+
+  div
+    h5 How to fetch your user ID
+    p Your user ID is the same as your username. Use idGettr.com to find your user ID.
+
+    p
+      a.btn.btn-small(href='https://idgettr.com', target='_blank')
+        = "Find your user ID "
+        i.icon.icon-chevron-right
 
