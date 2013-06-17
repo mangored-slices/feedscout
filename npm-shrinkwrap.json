@@ -776,6 +776,18 @@
           }
         }
       }
+    },
+    "xml-digester": {
+      "version": "0.0.3",
+      "from": "xml-digester@",
+      "resolved": "https://registry.npmjs.org/xml-digester/-/xml-digester-0.0.3.tgz",
+      "dependencies": {
+        "sax": {
+          "version": "0.5.4",
+          "from": "sax@>= 0.5.1",
+          "resolved": "https://registry.npmjs.org/sax/-/sax-0.5.4.tgz"
+        }
+      }
     }
   }
 }
