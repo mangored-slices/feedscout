@@ -22,7 +22,9 @@ block content
             small= account.username()
           td.name
             code= account.name
-          td.updated= Moment(account.lastUpdated).fromNow()
+          td.updated
+            - if (account.lastUpdated)
+              = Moment(account.lastUpdated).fromNow()
           td.actions
             a.btn.btn-small(href='/admin/accounts/'+account.id)
               i.icon-edit

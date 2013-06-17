@@ -20,7 +20,7 @@ run = ->
     Admin.newTwitter
 
   app.get "/admin/accounts/new/flickr",
-    redirect("/admin")
+    Admin.newFlickr
 
   app.get "/admin/accounts/new/instagram",
     redirect("/admin")
@@ -62,7 +62,7 @@ Admin =
     res.render "accounts/index"
 
   ###
-  # GET /admin/accounts/new
+  # GET /admin/accounts/new/twitter
   ###
   newTwitter: (req, res) ->
     res.locals.account = Account.build(
@@ -70,6 +70,16 @@ Admin =
       name: "twitter"
     )
     res.render "accounts/new-twitter"
+
+  ###
+  # GET /admin/accounts/new/flickr
+  ###
+  newFlickr: (req, res) ->
+    res.locals.account = Account.build(
+      service: "flickr"
+      name: "flickr"
+    )
+    res.render "accounts/new-flickr"
 
   ###
   # GET /admin/accounts/:id

@@ -1,0 +1,35 @@
+extend ../layout
+block content
+  ul.breadcrumb
+    li
+      a(href='/admin/accounts') Accounts
+      span.divider
+
+    li.active
+      | Create account
+
+  .page-header
+    h1 Add Flickr
+
+  .well
+    form.form-horizontal(method='post', action='/admin/accounts')
+      input(type='hidden', name='account[service]', value=account.service)
+      fieldset
+        .control-group
+          label.control-label Feed name
+          .controls
+            input(type='text', name='account[name]', value=account.name)
+            br
+            small.muted
+              | The name to identify the feed
+
+      fieldset
+        .control-group
+          label.control-label Flickr username
+          .controls
+            input(type='text', name='account[credentials][username]', value=account.getCredentials().username, autofocus)
+
+      .control-group
+        .controls
+          button.btn.btn-primary(type='submit') Continue
+
