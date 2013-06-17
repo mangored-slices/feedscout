@@ -13,7 +13,13 @@ module.exports = class FeedManager
   fetch: ->
     Q.all \
       @accounts.map (account) =>
-        account.fetcher().fetch()
+        Q.try =>
+          account.lastUpdated = new Date()
+          account.save()
+
+        .then =>
+          account.fetcher().fetch()
+
         .then (entries) =>
           @sync(account, entries)
 
@@ -48,11 +54,6 @@ module.exports = class FeedManager
           fulltext: entry.fulltext
           url: entry.url
         ).save()
-
-    # Touch
-    .then ->
-      account.lastUpdated = new Date()
-      account.save()
 
   # Checks last updated time.
   # Picks out the one that was updated earliest.
