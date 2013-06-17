@@ -405,6 +405,22 @@
             }
           }
         },
+        "source-map-support": {
+          "version": "0.1.6",
+          "from": "source-map-support@",
+          "dependencies": {
+            "source-map": {
+              "version": "0.1.8",
+              "from": "source-map@0.1.8",
+              "dependencies": {
+                "amdefine": {
+                  "version": "0.0.5",
+                  "from": "amdefine@>=0.0.4"
+                }
+              }
+            }
+          }
+        },
         "chai": {
           "version": "1.6.0",
           "from": "chai@1.6.x"
@@ -756,24 +772,6 @@
             "buster-core": {
               "version": "0.6.4",
               "from": "buster-core@>=0.6.2"
-            }
-          }
-        }
-      }
-    },
-    "source-map-support": {
-      "version": "0.1.6",
-      "from": "source-map-support@",
-      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.1.6.tgz",
-      "dependencies": {
-        "source-map": {
-          "version": "0.1.8",
-          "from": "source-map@0.1.8",
-          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.8.tgz",
-          "dependencies": {
-            "amdefine": {
-              "version": "0.0.5",
-              "from": "amdefine@>=0.0.4"
             }
           }
         }

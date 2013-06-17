@@ -34,8 +34,7 @@
     "underscore": "~1.4.4",
     "moment": "~2.0.0",
     "q": "~0.9.6",
-    "sinon": "~1.7.2",
-    "source-map-support": "~0.1.6"
+    "sinon": "~1.7.2"
   },
   "devDependencies": {
     "mocha": "*",
