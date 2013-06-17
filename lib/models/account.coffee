@@ -105,7 +105,9 @@ Account = module.exports = app.sequelize().define "Account",
       lastUpdated: Moment(@lastUpdated)?.format()
 
     username: ->
-      @getCredentials()?.username
+      @getCredentials()?.username ||
+      @getCredentials()?.userId
+
 
     avatar: ->
       @getCredentials()?.photo
