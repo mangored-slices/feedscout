@@ -1,9 +1,12 @@
 Q = require 'q'
 Moment = require 'moment'
+Request = require 'superagent'
 
 module.exports = class FlickrFetcher
 
   constructor: (account) ->
+    @request = Request
+
     if account.getCredentials
       user = account.getCredentials()
 
@@ -26,6 +29,24 @@ module.exports = class FlickrFetcher
       ok()
 
   ###
+  # Fetch entries
+  ###
+  fetchEntries: ->
+    Q.promise (ok, fail) =>
+      @request.get(@url()).end (err, data) ->
+        if err then fail(err) else ok(data)
+
+    .then (result) =>
+      console.log result
+      unless result.text
+        throw new Error("No result text")
+
+      @parseXml(result.text)
+
+    .then (rss) =>
+      @getEntries(rss)
+
+  ###
   # Parses a given XML string into lol
   ###
   parseXml: (xml) ->
@@ -37,6 +58,13 @@ module.exports = class FlickrFetcher
       digester.digest xml, (err, result) =>
         return fail(err)  if err
         ok(result)
+
+  ###
+  # Returns feed URL
+  # See: http://www.flickr.com/services/feeds/docs/photos_public/
+  ####
+  url: ->
+    "http://api.flickr.com/services/feeds/photos_public.gne?id=#{@userId}"
 
   ###
   # Fishes out entries from a JSON of the RSS
