@@ -1,4 +1,5 @@
-Twitter = require("../filters/twitter")
+TwitterFilter = require("../filters/twitter")
+InstagramFilter = require("../filters/instagram")
 AdminAuth = require("../../lib/admin_auth")
 Account = require("../../lib/models/account")
 {redirect, local} = require('../../lib/express-decorators')
@@ -46,12 +47,22 @@ run = ->
   app.get "/admin/accounts/:id/auth/twitter",
     Admin.getAccount,
     Admin.ensureAccountIs("twitter"),
-    Twitter.auth
+    TwitterFilter.auth
 
   app.get "/admin/accounts/:id/auth/twitter/callback",
     Admin.getAccount,
     Admin.ensureAccountIs("twitter"),
-    Twitter.callback
+    TwitterFilter.callback
+
+  app.get "/admin/accounts/:id/auth/instagram",
+    Admin.getAccount,
+    Admin.ensureAccountIs("instagram"),
+    InstagramFilter.auth
+
+  app.get "/admin/accounts/:id/auth/instagram/callback",
+    Admin.getAccount,
+    Admin.ensureAccountIs("instagram"),
+    InstagramFilter.callback
 
 # ----------------------------------------------------------------------------
 Admin =

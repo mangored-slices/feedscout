@@ -14,6 +14,11 @@ block content
       = account.name
 
   //------------------------------------------------------------------------
+  .well
+    h4 Login via Instagram now
+    a.btn.btn-large.btn-primary(href='/admin/accounts/' + account.id + '/auth/instagram') Authorize
+
+  //------------------------------------------------------------------------
   table.table
     - creds = account.getCredentials()
     dl
