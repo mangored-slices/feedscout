@@ -1,0 +1,33 @@
+extend ../layout
+block content
+  ul.breadcrumb
+    li
+      a(href='/admin/accounts') Accounts
+      span.divider
+
+    li.active
+      = account.name
+
+  //------------------------------------------------------------------------
+  .page-header
+    h1
+      = account.name
+
+  //------------------------------------------------------------------------
+  table.table
+    - creds = account.getCredentials()
+    dl
+      dt Client ID
+      dd
+        code= creds.clientId
+      dt Client secret
+      dd
+        code= creds.clientSecret
+
+  //------------------------------------------------------------------------
+  .actions
+    a.btn.btn-small.btn-danger(href='/admin/accounts/'+account.id, data-method='delete', data-confirm='Really?')
+      i.icon-white.icon-trash
+      = " Delete account"
+
+
