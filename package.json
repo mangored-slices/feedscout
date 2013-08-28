@@ -30,6 +30,8 @@
     "passport": "~0.1.17",
     "passport-twitter": "~0.1.5",
     "passport-instagram": "~0.1.2",
+    "passport-tumblr": "~0.1.2",
+    "passport-flickr": "~0.1.1",
     "twitter": "git://github.com/desmondmorris/node-twitter.git",
     "underscore": "~1.4.4",
     "moment": "~2.0.0",
