@@ -48,6 +48,9 @@ Deployment
     # Enable backups
       $ heroku addons:add pgbackups:auto-month
 
+    # Set up database
+      $ heroku run run db-sync
+
 Change admin password
 ---------------------
 
