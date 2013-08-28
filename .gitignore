@@ -4,3 +4,4 @@ public/css
 public/js
 public/img
 node_modules
+config/database.yml
