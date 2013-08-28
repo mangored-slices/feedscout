@@ -6,8 +6,7 @@ Setup:
 
 Set up config:
 
-    $ ./run gen-admin
-
+    $ ./run gen-admin      # Make an admin password
     $ cp config/database.yml{.example,}
 
 Run:
@@ -18,11 +17,16 @@ For more info:
 
     $ ./run --help
 
+Tests
+-----
+
+    $ npm test
+
 Admin
 -----
 
-Go to `http://.../admin`. The password is likely `password`, it's stored in 
-`config/admin.yml`.
+Go to `http://localhost:4567/admin`.
+(The password is likely `password`, it's stored in `config/admin.yml`.)
 
 Change admin password
 ---------------------
