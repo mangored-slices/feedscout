@@ -23,10 +23,10 @@ run = ->
     Admin.newFlickr
 
   app.get "/admin/accounts/new/instagram",
-    redirect("/admin")
+    Admin.newInstagram
 
   app.get "/admin/accounts/new/tumblr",
-    redirect("/admin")
+    Admin.newTumblr
 
   app.get '/admin/accounts/backup',
     Admin.getAccounts,
@@ -80,6 +80,26 @@ Admin =
       name: "flickr"
     )
     res.render "accounts/new-flickr"
+
+  ###
+  # GET /admin/accounts/new/instagram
+  ###
+  newInstagram: (req, res) ->
+    res.locals.account = Account.build(
+      service: "instagram"
+      name: "instagram"
+    )
+    res.render "accounts/new-instagram"
+
+  ###
+  # GET /admin/accounts/new/tumblr
+  ###
+  newTumblr: (req, res) ->
+    res.locals.account = Account.build(
+      service: "tumblr"
+      name: "tumblr"
+    )
+    res.render "accounts/new-tumblr"
 
   ###
   # GET /admin/accounts/:id
