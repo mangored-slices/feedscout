@@ -29,6 +29,10 @@ block content
             a.btn.btn-small(href='/admin/accounts/'+account.id)
               i.icon-edit
               = " Edit"
+            - if (!account.isAuthorized())
+              = " "
+              a.btn.btn-primary.btn-small(href="/admin/accounts/#{account.id}/auth/#{account.service}")
+                = "Auth"
 
   .btn-group
     a.btn.dropdown-toggle.btn-primary(data-toggle='dropdown', href='#')

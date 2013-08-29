@@ -68,6 +68,8 @@ Account = module.exports = app.sequelize().define "Account",
         service: @service
         lastUpdated: Moment(@lastUpdated)?.format()
 
+    isAuthorized: ->
+      @getCredentials()?.accessToken
       service = @service
       extend obj, this[service].toJSON.apply(this)  if this[service]
       obj
