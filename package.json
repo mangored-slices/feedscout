@@ -40,7 +40,8 @@
     "sinon": "~1.7.2",
     "xml-digester": "~0.0.3",
     "superagent": "~0.14.9",
-    "querystring": "~0.2.0"
+    "querystring": "~0.2.0",
+    "flickr": "~0.1.0"
   },
   "devDependencies": {
     "mocha": "*",

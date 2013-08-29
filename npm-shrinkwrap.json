@@ -256,7 +256,7 @@
       }
     },
     "expo-connect_assets": {
-      "version": "0.1.5",
+      "version": "0.1.6",
       "dependencies": {
         "connect-assets": {
           "version": "2.4.3",
@@ -313,7 +313,7 @@
       }
     },
     "expo-sequelize": {
-      "version": "0.1.5",
+      "version": "0.1.6",
       "dependencies": {
         "sequelize": {
           "version": "1.7.0-alpha2",
@@ -364,7 +364,7 @@
       }
     },
     "expo": {
-      "version": "0.1.5",
+      "version": "0.1.6",
       "dependencies": {
         "commander": {
           "version": "1.1.1",
@@ -936,6 +936,20 @@
           "from": "debug@~0.7.2"
         }
       }
+    },
+    "querystring": {
+      "version": "0.2.0",
+      "from": "querystring@",
+      "resolved": "https://registry.npmjs.org/querystring/-/querystring-0.2.0.tgz"
+    },
+    "flickr": {
+      "version": "0.1.0",
+      "from": "flickr@",
+      "resolved": "https://registry.npmjs.org/flickr/-/flickr-0.1.0.tgz"
+    },
+    "oauth": {
+      "version": "0.9.10",
+      "from": "oauth@"
     }
   }
 }
