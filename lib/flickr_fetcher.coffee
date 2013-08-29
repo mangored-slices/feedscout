@@ -28,6 +28,9 @@ module.exports = class FlickrFetcher
   # Returns a promise that yields an array of entries
   ###
   fetch: ->
+    # Disable the flickr fetcher for now, it doesn't work
+    return Q.promise (ok, fail) -> ok([])
+
     Q.promise (ok, fail) =>
       @request.get(@url()).end (err, data) ->
         if err then fail(err) else ok(data)
