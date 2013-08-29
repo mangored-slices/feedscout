@@ -1,9 +1,32 @@
+function read(callback) {
+  var data = '';
+  process.stdin.resume();
+  process.stdin.on('data', function(chunk) { data += chunk.toString(); });
+  process.stdin.on('end', function() { callback(data); });
+}
+
 module.exports = function(app, cli) {
   cli
     .command('gen-admin')
     .description('Generates admin credentials')
     .action(function() {
       cli.password("password: ", "*", generate);
+    });
+
+  cli
+    .command('backup-restore')
+    .description('Restores from a backup')
+    .action(function() {
+      read(function(data) {
+        app.load();
+        var Account = require('../../lib/models/account');
+
+        data = JSON.parse(data);
+        data.accounts.forEach(function(account) {
+          console.log(account);
+          Account.build(account).setCredentials(account.credentials).save();
+        });
+      });
     });
 
   cli
