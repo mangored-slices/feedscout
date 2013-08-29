@@ -29,7 +29,7 @@ module.exports = class FeedManager
   ###
   sync: (account, entries) ->
 
-    # Get old entries
+    # Get old entries to be deleted
     Q.try ->
       entries = _(entries).sortBy (item) -> +Moment(item.date)
 
@@ -40,7 +40,7 @@ module.exports = class FeedManager
 
         Entry.findAll(where: ["accountId = ? AND date >= ? AND date <= ?", account.id, range.from, range.to])
       else
-        []
+        Entry.findAll()
 
     # Destroy old entries
     .then (oldEntries) ->
