@@ -31,7 +31,7 @@ module.exports = class TumblrFetcher
       throw new Error('Wrong format') unless entries?
 
       entries = _(entries).select (e) ->
-        (e?.state is 'published') and (_(['quote', 'text', 'photo'].include(e.type))
+        (e?.state is 'published') and (_(['quote', 'text', 'photo']).include(e.type))
 
     .then (entries) =>
       entries.map (e) =>
