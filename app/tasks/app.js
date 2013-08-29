@@ -20,6 +20,7 @@ module.exports = function(app, cli) {
         }
         else {
           console.log("  ... fetching ["+name+"]");
+
           account.fetcher().fetch()
           .then(function(entries) {
             console.log(entries);

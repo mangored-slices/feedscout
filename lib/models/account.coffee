@@ -85,6 +85,7 @@ Account = module.exports = app.sequelize().define "Account",
       switch @service
         when 'twitter' then new (require '../twitter_fetcher')(this)
         when 'flickr' then new (require '../flickr_fetcher')(this)
+        when 'instagram' then new (require '../instagram_fetcher')(this)
 
     ###
     # Returns time since last updated in miliseconds
