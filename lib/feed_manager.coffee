@@ -33,11 +33,14 @@ module.exports = class FeedManager
     Q.try ->
       entries = _(entries).sortBy (item) -> +Moment(item.date)
 
-      range =
-        from: Moment(_(entries).first().date).toDate()
-        to: Moment(_(entries).last().date).toDate()
+      if entries.length > 0
+        range =
+          from: Moment(_(entries).first().date).toDate()
+          to: Moment(_(entries).last().date).toDate()
 
-      Entry.findAll(where: ["accountId = ? AND date >= ? AND date <= ?", account.id, range.from, range.to])
+        Entry.findAll(where: ["accountId = ? AND date >= ? AND date <= ?", account.id, range.from, range.to])
+      else
+        []
 
     # Destroy old entries
     .then (oldEntries) ->
