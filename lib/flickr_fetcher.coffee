@@ -5,8 +5,6 @@ Request = require 'superagent'
 module.exports = class FlickrFetcher
 
   constructor: (account) ->
-    @request = Request
-
     if account.getCredentials
       user = account.getCredentials()
 
@@ -28,14 +26,12 @@ module.exports = class FlickrFetcher
   # Returns a promise that yields an array of entries
   ###
   fetch: ->
-    # Disable the flickr fetcher for now, it doesn't work
-    return Q.promise (ok, fail) -> ok([])
-
     Q.promise (ok, fail) =>
-      @request.get(@url()).end (err, data) ->
+      Request.get(@url()).end (err, data) ->
         if err then fail(err) else ok(data)
 
     .then (result) =>
+      console.log(result)
       unless result.text
         throw new Error("No result text")
 

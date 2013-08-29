@@ -17,7 +17,7 @@ module.exports =
       consumerSecret: account.getCredentials().consumerSecret
       callbackURL: "http://#{req.headers.host}/auth/tumblr/callback"
     , (token, tokenSecret, profile, done) ->
-      console.log profile
+      console.log profile._json?.response?.user?.blogs
       account.extendCredentials
         accessToken: token
         accessTokenSecret: tokenSecret
@@ -25,6 +25,9 @@ module.exports =
         userId: null
         displayName: profile._json?.response?.user?.blogs?[0]?.title
         photo: null
+        tumblr_blogUrl: profile._json?.response?.user?.blogs?[0]?.url
+        tumblr_blogId: profile._json?.response?.user?.blogs?[0]?.url?.replace(/^http:\/\/|\/.*$/g, '')
+        data: profile
 
       account.save().success(->
         done()

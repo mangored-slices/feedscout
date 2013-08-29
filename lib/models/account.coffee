@@ -86,6 +86,7 @@ Account = module.exports = app.sequelize().define "Account",
         when 'twitter' then new (require '../twitter_fetcher')(this)
         when 'flickr' then new (require '../flickr_fetcher')(this)
         when 'instagram' then new (require '../instagram_fetcher')(this)
+        when 'tumblr' then new (require '../tumblr_fetcher')(this)
 
     ###
     # Returns time since last updated in miliseconds
