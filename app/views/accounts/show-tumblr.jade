@@ -14,15 +14,20 @@ block content
       = account.name
 
   //------------------------------------------------------------------------
+  .well
+    h4 Login via Tumblr now
+    a.btn.btn-large.btn-primary(href='/admin/accounts/' + account.id + '/auth/tumblr') Authorize
+
+  //------------------------------------------------------------------------
   table.table
     - creds = account.getCredentials()
     dl
-      dt Client ID
+      dt Consumer key
       dd
-        code= creds.clientId
-      dt Client secret
+        code= creds.consumerKey
+      dt Consumer secret
       dd
-        code= creds.clientSecret
+        code= creds.consumerSecret
 
   //------------------------------------------------------------------------
   .actions
