@@ -25,22 +25,37 @@ block content
 
       fieldset
         .control-group
-          label.control-label Flickr user ID
+          label.control-label Consumer key
           .controls
-            input(type='text', name='account[credentials][userId]', value=account.getCredentials().userId, autofocus)
+            input(type='text', name='account[credentials][consumerKey]', value=account.getCredentials().consumerKey, autofocus)
             br
             small.muted
-              | This is NOT your username, read below!
+              | A key for the Flickr application
+
+        .control-group
+          label.control-label Consumer secret
+          .controls
+            input(type='text', name='account[credentials][consumerSecret]', value=account.getCredentials().consumerSecret)
+            br
+            small.muted
+              | The secret associated with the key
+
       .control-group
         .controls
           button.btn.btn-primary(type='submit') Continue
 
   div
-    h5 How to fetch your user ID
-    p Your user ID is the same as your username. Use idGettr.com to find your user ID.
+    h5 Need a consumer key & secret?
+    p If you've done this before, you can use the same key and secret here. If you haven't yet, follow these step-by-step instructions below:
+    ol
+      li Create a new application on Flickr (follow link below).
+      li
+        = "Set callback URL to "
+        code= callbackUrl
+        = ", if asked."
+      li
+        != "Find the <u>consumer key</u> and <u>consumer secret</u> and paste them here."
 
     p
-      a.btn.btn-small(href='https://idgettr.com', target='_blank')
-        = "Find your user ID "
-        i.icon.icon-chevron-right
+      a.btn.btn-small(href='http://www.flickr.com/services/apps/create/', target='_blank') Create your Flickr app
 

@@ -36,35 +36,50 @@ $ curl http://api.yoursite.com/feed.json?feeds=twitter,instagram
 ```
 
 
-## Flickr
+Services
+--------
+
+### Flickr
 
  * Just the username
 
-## Tumblr
+ * http://www.flickr.com/services/apps/create/
 
- * Register at http://www.tumblr.com/oauth/register
+API:
+
+ * http://www.flickr.com/services/api/
+ * http://www.flickr.com/services/api/flickr.activity.userPhotos.html
+
+### Tumblr
+
+OAuth directions:
+
+ * http://www.tumblr.com/oauth/register
  * No callback URL or icon
  * See it listed in http://www.tumblr.com/oauth/apps
- * Save the __OAuth Consumer Key__
+ * Save the `OAuth Consumer Key`
 
-## Twitter
+API:
+
+    http://www.tumblr.com/docs/en/api/v2#posts
+
+### Twitter
+
+OAuth directions:
 
  * https://dev.twitter.com/apps/new
- * Get __Consumer Key__ and __Consumer Secret__ here
+ * Get `Consumer Key` and `Consumer Secret` here
  * Click "create access token"
- * Get __Access Token__ and __Access Token Secret__
+ * Get `Access Token` and `Access Token Secret`
 
 https://github.com/jdub/node-twitter
 
-## Instagram
+### Instagram
 
  * http://instagram.com/developer
  * Go to "Manage Clients"
  * Sign in and create a new client
  * Redirect URI = http://127.0.0.1:8000/instagram/auth/
- * Get __client ID__ and __secret__
+ * Get `client ID` and `secret`
  * Navigate to that URL above
- * __access token__ and __user id__
-
-https://github.com/teleportd/instagram-node
-https://github.com/mckelvey/instagram-node-lib
+ * `access token` and `user id`

@@ -14,12 +14,39 @@ block content
       = account.name
 
   //------------------------------------------------------------------------
+  .well
+    h4 Login via Flickr now
+    a.btn.btn-large.btn-primary(href='/admin/accounts/' + account.id + '/auth/flickr') Authorize
+
+  //------------------------------------------------------------------------
   table.table
     - creds = account.getCredentials()
     dl
-      dt Flickr user ID
+      dt Consumer key
       dd
-        code= creds.userId
+        code= creds.consumerKey
+    dl
+      dt Consumer secret
+      dd
+        code= creds.consumerSecret
+    dl
+      dt Access token
+      dd
+        code= creds.accessToken
+    dl
+      dt Access token secret
+      dd
+        code= creds.accessTokenSecret
+
+    - if (creds.displayName)
+      dl
+        dt User
+        dd
+          strong= creds.displayName
+          br
+          em= creds.username
+          br
+          em= creds.userId
 
   //------------------------------------------------------------------------
   .actions

@@ -1,5 +1,6 @@
 TwitterFilter = require("../filters/twitter")
 InstagramFilter = require("../filters/instagram")
+FlickrFilter = require("../filters/flickr")
 TumblrFilter = require("../filters/tumblr")
 AdminAuth = require("../../lib/admin_auth")
 Account = require("../../lib/models/account")
@@ -68,6 +69,14 @@ run = ->
 
   app.get "/auth/tumblr/callback",
     TumblrFilter.callback
+
+  app.get "/admin/accounts/:id/auth/flickr",
+    Admin.getAccount,
+    Admin.ensureAccountIs("flickr"),
+    FlickrFilter.auth
+
+  app.get "/auth/flickr/callback",
+    FlickrFilter.callback
 
 # ----------------------------------------------------------------------------
 Admin =

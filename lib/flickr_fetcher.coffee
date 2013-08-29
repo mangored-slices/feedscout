@@ -26,12 +26,8 @@ module.exports = class FlickrFetcher
   # Returns a promise that yields an array of entries
   ###
   fetch: ->
-    Q.promise (ok, fail) =>
-      Request.get(@url()).end (err, data) ->
-        if err then fail(err) else ok(data)
-
+    @get(@url)
     .then (result) =>
-      console.log(result)
       unless result.text
         throw new Error("No result text")
 
@@ -41,7 +37,18 @@ module.exports = class FlickrFetcher
       @getEntries(rss)
 
   ###
-  # Parses a given XML string into stuff
+  # Gets a given URL, returns a promise yielding the data.
+  ###
+  get: (url) ->
+    Q.promise (ok, fail) =>
+      Request.get(@url()).end (err, data) ->
+        if err then fail(err) else ok(data)
+
+  ###
+  # Parses a given XML string into stuff. Returns a promise yielding `data`.
+  #
+  #     parseXml(xmlstr).then (data) ->
+  #       data.entries
   ###
   parseXml: (xml) ->
     Q.promise (ok, fail) =>
