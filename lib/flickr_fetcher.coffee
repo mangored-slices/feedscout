@@ -45,7 +45,8 @@ module.exports = class FlickrFetcher
 
     # Fetch sizes for each photo
     .then (photos) =>
-      photos.map (photo) ->
+      photos.map (photo) =>
+        accountId: @account.id
         text: photo.title
         date: new Date(parseInt(photo.dateupload, 10)*1000)
         url: null
