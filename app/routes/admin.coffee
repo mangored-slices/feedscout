@@ -49,9 +49,7 @@ run = ->
     Admin.ensureAccountIs("twitter"),
     TwitterFilter.auth
 
-  app.get "/admin/accounts/:id/auth/twitter/callback",
-    Admin.getAccount,
-    Admin.ensureAccountIs("twitter"),
+  app.get "/auth/twitter/callback",
     TwitterFilter.callback
 
   app.get "/admin/accounts/:id/auth/instagram",
@@ -59,9 +57,7 @@ run = ->
     Admin.ensureAccountIs("instagram"),
     InstagramFilter.auth
 
-  app.get "/admin/accounts/:id/auth/instagram/callback",
-    Admin.getAccount,
-    Admin.ensureAccountIs("instagram"),
+  app.get "/auth/instagram/callback",
     InstagramFilter.callback
 
 # ----------------------------------------------------------------------------
@@ -80,6 +76,7 @@ Admin =
       service: "twitter"
       name: "twitter"
     )
+    res.locals.callbackUrl = "http://#{req.headers.host}/"
     res.render "accounts/new-twitter"
 
   ###
@@ -90,6 +87,7 @@ Admin =
       service: "flickr"
       name: "flickr"
     )
+    res.locals.callbackUrl = "http://#{req.headers.host}/"
     res.render "accounts/new-flickr"
 
   ###
@@ -100,6 +98,7 @@ Admin =
       service: "instagram"
       name: "instagram"
     )
+    res.locals.callbackUrl = "http://#{req.headers.host}/auth/instagram/callback"
     res.render "accounts/new-instagram"
 
   ###
@@ -110,6 +109,7 @@ Admin =
       service: "tumblr"
       name: "tumblr"
     )
+    res.locals.callbackUrl = "http://#{req.headers.host}/"
     res.render "accounts/new-tumblr"
 
   ###

@@ -15,15 +15,14 @@ module.exports =
     passport.use new Strategy(
       clientID: account.getCredentials().clientId
       clientSecret: account.getCredentials().clientSecret
-      callbackURL: "http://127.0.0.1:4567/admin/accounts/#{id}/auth/instagram/callback"
+      callbackURL: "http://#{req.headers.host}/auth/instagram/callback"
     , (token, tokenSecret, profile, done) ->
-      console.log profile
       account.extendCredentials
         accessToken: token
         accessTokenSecret: tokenSecret
         username: profile.username
         displayName: profile.displayName
-        photo: profile.photos[0].value
+        photo: profile._json?.data?.profile_picture
 
       account.save().success(->
         done()
@@ -39,8 +38,7 @@ module.exports =
   ###
 
   callback: (req, res, next) ->
-    id = req.params.id
     passport.authenticate("instagram",
-      successRedirect: "/admin/accounts/" + id
-      failureRedirect: "/admin/accounts/" + id
+      successRedirect: "/admin/accounts"
+      failureRedirect: "/admin/accounts"
     ).apply this, arguments

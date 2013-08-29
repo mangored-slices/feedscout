@@ -1,4 +1,4 @@
-TwitterStrategy = require("passport-twitter").Strategy
+Strategy = require("passport-twitter").Strategy
 passport = require("passport")
 
 module.exports =
@@ -12,10 +12,10 @@ module.exports =
     id = res.locals.account.id
 
     # Dynamically set the strategy.
-    passport.use new TwitterStrategy(
+    passport.use new Strategy(
       consumerKey: account.getCredentials().consumerKey
       consumerSecret: account.getCredentials().consumerSecret
-      callbackURL: "http://127.0.0.1:4567/admin/accounts/#{id}/auth/twitter/callback"
+      callbackURL: "http://#{req.headers.host}/auth/twitter/callback"
     , (token, tokenSecret, profile, done) ->
       account.extendCredentials
         accessToken: token
@@ -38,8 +38,7 @@ module.exports =
   ###
 
   callback: (req, res, next) ->
-    id = req.params.id
     passport.authenticate("twitter",
-      successRedirect: "/admin/accounts/" + id
-      failureRedirect: "/admin/accounts/" + id
+      successRedirect: "/admin/accounts"
+      failureRedirect: "/admin/accounts"
     ).apply this, arguments
