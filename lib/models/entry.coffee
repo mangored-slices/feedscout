@@ -11,6 +11,7 @@ module.exports = Entry = app.sequelize().define("Entry",
 
   date: Sq.DATE
   image: Sq.STRING
+  imageLarge: Sq.STRING
   text: Sq.TEXT
   fulltext: Sq.TEXT
   url: Sq.STRING

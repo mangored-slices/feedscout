@@ -19,16 +19,23 @@ module.exports = function(app, cli) {
           console.log("  ... no such account ["+name+"]");
         }
         else {
-          console.log("  ... fetching ["+name+"]");
+          console.log("  ... ["+name+"]: getting fetcher");
 
-          account.fetcher().fetch()
+          var fetcher = account.fetcher();
+          console.log("  ... ["+name+"]: fetching");
+
+          return fetcher.fetch()
           .then(function(entries) {
             console.log(entries);
             console.log("  ... ok");
-          }, function(err) {
-            console.log("  ... err: ", err);
           });
         }
+      })
+      .then(null, function(err) {
+        console.log("  ... err: ");
+        console.log(err);
+        console.log("  ... err");
+        throw err;
       });
     });
 };
