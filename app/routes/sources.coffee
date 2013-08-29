@@ -1,6 +1,7 @@
 Account = require('../../lib/models/account')
 Q = require('q')
 app = require('../..')
+Cors = require '../../lib/cors'
 {run, local} = require('../../lib/express-decorators')
 
 # ----------------------------------------------------------------------------
