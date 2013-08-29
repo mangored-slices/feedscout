@@ -62,3 +62,8 @@ API
     $ curl http://feeds.app.com/sources.json
 
     $ curl http://feeds.app.com/feed.json
+
+Restoring from backup
+---------------------
+
+    $ ./run backup-restore < backup.json
