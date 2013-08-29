@@ -21,6 +21,7 @@ module.exports =
         accessToken: token
         accessTokenSecret: tokenSecret
         username: profile.username
+        userId: profile.id
         displayName: profile.displayName
         photo: profile._json?.data?.profile_picture
 

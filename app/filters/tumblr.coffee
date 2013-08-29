@@ -22,6 +22,7 @@ module.exports =
         accessToken: token
         accessTokenSecret: tokenSecret
         username: profile.username
+        userId: null
         displayName: profile._json?.response?.user?.blogs?[0]?.title
         photo: null
 

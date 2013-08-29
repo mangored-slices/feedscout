@@ -18,7 +18,7 @@ module.exports = class FeedManager
           account.save()
 
         .then =>
-          account.fetcher().fetch()
+          account.fetcher()?.fetch()
 
         .then (entries) =>
           @sync(account, entries)
