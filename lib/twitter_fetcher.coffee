@@ -46,6 +46,7 @@ module.exports = class TwitterFetcher
             url:      "https://twitter.com/#{user}/status/#{tweet.id_str}"
             text:     tweet.text
             fulltext: null
+            data:     tweet
 
           ok(tweets)
 
