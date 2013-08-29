@@ -15,6 +15,7 @@ module.exports = Entry = app.sequelize().define("Entry",
   text: Sq.TEXT
   fulltext: Sq.TEXT
   url: Sq.STRING
+  data: Sq.TEXT
 ,
   classMethods:
 

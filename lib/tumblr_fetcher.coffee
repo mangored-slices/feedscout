@@ -39,7 +39,7 @@ module.exports = class TumblrFetcher
           accountId: @account.id
           date:      Date(e.timestamp*1000)
           url:       e.post_url
-          data:      e
+          data:      JSON.stringify(e)
 
         if e.type is 'photo'
           entry.text     = unhtml(e.caption)

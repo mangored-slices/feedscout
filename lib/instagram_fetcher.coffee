@@ -37,7 +37,7 @@ module.exports = class InstagramFetcher
         fulltext:  null
         image:     null
         imageLarge: null
-        data:      e
+        data:      JSON.stringify(e)
 
   ###
   # Performs a GET request.

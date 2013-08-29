@@ -52,7 +52,7 @@ module.exports = class FlickrFetcher
         fulltext: photo.description?._content
         image: photo.url_m
         imageLarge: photo.url_l
-        data: photo
+        data: JSON.stringify(photo)
 
   ###
   # Fetch from Flickr via Oauth. Returns a promise.
