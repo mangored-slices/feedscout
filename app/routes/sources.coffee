@@ -6,11 +6,13 @@ app = require('../..')
 # ----------------------------------------------------------------------------
 # Sources controller
 
-app.get "/sources.json", (req, res, next) ->
+app.get "/sources.json",
+  Cors,
+  (req, res, next) ->
 
-  Q.when(Account.findAll())
+    Q.when(Account.findAll())
 
-  .then (accounts) ->
-    res.json sources: accounts
+    .then (accounts) ->
+      res.json sources: accounts
 
-  .fail(next)
+    .fail(next)
