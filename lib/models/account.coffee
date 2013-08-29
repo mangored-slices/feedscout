@@ -63,16 +63,17 @@ Account = module.exports = app.sequelize().define "Account",
     # Returns a JSON representation for viewing.
     ###
     toJSON: ->
+      creds = @getCredentials()
       obj =
         name: @name
         service: @service
         lastUpdated: Moment(@lastUpdated)?.format()
+        username: creds?.username
+        displayName: creds?.displayName
+        photo: creds?.photo
 
     isAuthorized: ->
       @getCredentials()?.accessToken
-      service = @service
-      extend obj, this[service].toJSON.apply(this)  if this[service]
-      obj
 
     ###
     # return Feed fetcher
@@ -87,16 +88,6 @@ Account = module.exports = app.sequelize().define "Account",
     ###
     age: ->
       +new Date() - @lastUpdated
-
-    ###
-    # These are consumed by toJSON()
-    ###
-    twitter:
-      toJSON: ->
-        creds = @getCredentials()
-        username: creds.username
-        displayName: creds.displayName
-        photo: creds.photo
 
     ###
     # For backup purposes
