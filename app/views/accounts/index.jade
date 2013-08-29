@@ -7,6 +7,7 @@ block content
     table.table
       thead
         tr
+          th(style='width: 50px')
           th Account
           th ID
           th Updated
@@ -14,9 +15,10 @@ block content
 
       each account in accounts
         tr
-          td.username
+          td.avatar
             - if (account.avatar())
               img(src=account.avatar(), width='50', height='50', style='float: left; margin-right: 10px')
+          td.username
             strong= account.service
             br
             small= account.username()

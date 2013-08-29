@@ -28,6 +28,24 @@ block content
       dt Client secret
       dd
         code= creds.clientSecret
+    dl
+      dt Access token
+      dd
+        code= creds.accessToken
+    dl
+      dt Access token secret
+      dd
+        code= creds.accessTokenSecret
+
+    - if (creds.displayName)
+      dl
+        dt User
+        dd
+          img(src=creds.photo, width=50, height=50)
+          br
+          strong= creds.displayName
+          br
+          em= creds.username
 
   //------------------------------------------------------------------------
   .actions
