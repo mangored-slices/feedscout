@@ -22,7 +22,7 @@ module.exports =
         accessToken: token
         accessTokenSecret: tokenSecret
         username: profile.username
-        displayName: profile.username
+        displayName: profile._json?.response?.user?.blogs?[0]?.title
         photo: null
 
       account.save().success(->
