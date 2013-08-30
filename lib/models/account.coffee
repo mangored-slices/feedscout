@@ -73,10 +73,7 @@ Account = module.exports = app.sequelize().define "Account",
         photo: creds?.photo
 
     isAuthorized: ->
-      if @service is 'flickr'
-        true
-      else
-        @getCredentials()?.accessToken
+      @getCredentials()?.accessToken
 
     ###
     # return Feed fetcher
