@@ -22,6 +22,9 @@ module.exports = function(app) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
+  app.set('sequelize options', {
+    omitNull: true
+  });
   app.configure('development', function() {
     app.use(expo.errorHandler(express.errorHandler()));
   });
