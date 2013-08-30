@@ -80,7 +80,7 @@ module.exports = class FeedManager
       where = if dialect is 'postgres'
         "account_id = ANY(ARRAY[#{ids.join(',')}])"
       else
-        ["account_id = (?)", ids]
+        ["account_id IN (?)", ids]
 
       Entry.findAll(where: where, limit: n, order: "date DESC", include: [ Account ])
 
