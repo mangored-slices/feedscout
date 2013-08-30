@@ -23,7 +23,8 @@ module.exports = function(app) {
   app.use(passport.session());
   app.use(app.router);
   app.set('sequelize options', {
-    omitNull: true
+    omitNull: true,
+    defines: { timestamps: false }
   });
   app.configure('development', function() {
     app.use(expo.errorHandler(express.errorHandler()));
