@@ -30,7 +30,7 @@ Account = module.exports = app.sequelize().define "Account",
   name: Sq.STRING
   service: Sq.STRING
   credentials: {type: Sq.TEXT, defaultValue: "{}"}
-  lastUpdated: Sq.DATE
+  updated_at: Sq.DATE
 
 ,
   tableName: "accounts"
@@ -67,7 +67,7 @@ Account = module.exports = app.sequelize().define "Account",
       obj =
         name: @name
         service: @service
-        lastUpdated: Moment(@lastUpdated)?.format()
+        updated_at: Moment(@updated_at)?.format()
         username: creds?.username
         displayName: creds?.displayName
         photo: creds?.photo
@@ -89,7 +89,7 @@ Account = module.exports = app.sequelize().define "Account",
     # Returns time since last updated in miliseconds
     ###
     age: ->
-      +new Date() - @lastUpdated
+      +new Date() - @updated_at
 
     ###
     # For backup purposes
@@ -98,7 +98,7 @@ Account = module.exports = app.sequelize().define "Account",
       name: @name
       service: @service
       credentials: @getCredentials()
-      lastUpdated: Moment(@lastUpdated)?.format()
+      updated_at: Moment(@updated_at)?.format()
 
     username: ->
       @getCredentials()?.username ||

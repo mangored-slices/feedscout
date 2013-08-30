@@ -36,7 +36,7 @@ module.exports = class TumblrFetcher
     .then (entries) =>
       entries.map (e) =>
         entry =
-          accountId: @account.id
+          account_id: @account.id
           date:      Moment(e.date).toDate()
           url:       e.post_url
           data:      JSON.stringify(e)

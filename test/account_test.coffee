@@ -17,7 +17,7 @@ describe "Accounts", ->
 
         assert.equal result.sources[0].name, "mytwitter"
         assert.equal result.sources[0].service, "twitter"
-        assert.equal result.sources[0].lastUpdated, Moment('05/05/2013').format()
+        assert.equal result.sources[0].updated_at, Moment('05/05/2013').format()
         assert.equal result.sources[0].username, "rstacruz"
 
         assert.equal result.sources[1].service, "instagram"
@@ -27,7 +27,7 @@ describe "Accounts", ->
     Account.build
       service: "twitter"
       name: "mytwitter"
-      lastUpdated: Moment('05/05/2013').toDate()
+      updated_at: Moment('05/05/2013').toDate()
     .setCredentials
       username: "rstacruz"
       displayName: "Rico Sta. Cruz"

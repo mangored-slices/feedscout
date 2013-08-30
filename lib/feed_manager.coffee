@@ -14,7 +14,7 @@ module.exports = class FeedManager
     Q.all \
       @accounts.map (account) =>
         Q.try =>
-          account.lastUpdated = new Date()
+          account.updated_at = new Date()
           account.save()
 
         .then =>
@@ -38,7 +38,7 @@ module.exports = class FeedManager
           from: Moment(_(entries).first().date).toDate()
           to: Moment(_(entries).last().date).toDate()
 
-        Entry.findAll(where: ["accountId = ? AND date >= ? AND date <= ?", account.id, range.from, range.to])
+        Entry.findAll(where: ["account_id = ? AND date >= ? AND date <= ?", account.id, range.from, range.to])
       else
         Entry.findAll()
 
@@ -50,7 +50,7 @@ module.exports = class FeedManager
     .then ->
       Q.all entries.map (entry) ->
         Entry.build(
-          accountId: entry.accountId
+          account_id: entry.account_id
           date: entry.date
           text: entry.text
           image: entry.image
@@ -60,20 +60,20 @@ module.exports = class FeedManager
 
   # Checks last updated time.
   # Picks out the one that was updated earliest.
-  lastUpdated: ->
-    dates = _(@accounts).pluck('lastUpdated')
+  updated_at: ->
+    dates = _(@accounts).pluck('updated_at')
     _(dates).min()
 
   # Age in miliseconds
   age: ->
-    (+new Date() - @lastUpdated())
+    (+new Date() - @updated_at())
 
   # Get latest `n` stories from given accounts.
   # Returns a promise.
   get: (n=20) ->
     # Account for empty accounts
     if @accounts.length > 0
-      Entry.findAll(where: ["accountId IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC", include: [ Account ])
+      Entry.findAll(where: ["account_id IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC", include: [ Account ])
     else
       # For empty accounts, return an empty set
       Q.promise (ok) -> ok([])

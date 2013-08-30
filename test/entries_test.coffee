@@ -30,5 +30,5 @@ describe "Entries", ->
     Q.all _(30).times (n) =>
       Entry.build
         text: "hello #{n}"
-        accountId: @twitter.id
+        account_id: @twitter.id
       .save()

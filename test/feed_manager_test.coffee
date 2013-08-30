@@ -51,9 +51,9 @@ describe 'FeedManager', ->
       .then (entries) ->
         assert.lengthOf entries, 6
 
-  it '.lastUpdated', ->
+  it '.updated_at', ->
     @manager = new FeedManager([ @twitter1, @twitter2 ])
-    assert.equal +@manager.lastUpdated(), +Moment('05/04/2010')
+    assert.equal +@manager.updated_at(), +Moment('05/04/2010')
 
   describe '/feed.json', ->
     before Setup.loadApp
@@ -67,13 +67,13 @@ describe 'FeedManager', ->
   # ----
 
   beforeEach pt ->
-    Account.build(service: "twitter", name: "mytwitter", lastUpdated: Moment('05/04/2010').toDate())
+    Account.build(service: "twitter", name: "mytwitter", updated_at: Moment('05/04/2010').toDate())
     .setCredentials(username: 'ryu')
     .save()
     .then (@twitter1) =>
 
   beforeEach pt ->
-    Account.build(service: "twitter", name: "myothertwitter", lastUpdated: Moment('05/08/2010').toDate())
+    Account.build(service: "twitter", name: "myothertwitter", updated_at: Moment('05/08/2010').toDate())
     .setCredentials(username: 'ken')
     .save()
     .then (@twitter2) =>

@@ -50,7 +50,7 @@ describe 'FeedManager', ->
     it 'should update account last updated info', pt ->
       Account.find(@twitter.id)
       .then (account) ->
-        delta = (+new Date() - account.lastUpdated)
+        delta = (+new Date() - account.updated_at)
         assert.operator delta, '<', 60000
 
     it 'should have right tweets', ->
@@ -71,7 +71,7 @@ describe 'FeedManager', ->
   beforeEach pt ->
     promises = for n in [10..20]
       Entry.build
-        accountId: @twitter.id
+        account_id: @twitter.id
         text:      "Hello, May #{n}"
         date:      Moment("05/#{n}/2013").toDate()
       .save()
