@@ -54,7 +54,7 @@ API:
 
 OAuth directions:
 
- * http://www.tumblr.com/oauth/register
+ * http://www.tumblr.com/oauth/apps
  * No callback URL or icon
  * See it listed in http://www.tumblr.com/oauth/apps
  * Save the `OAuth Consumer Key`
