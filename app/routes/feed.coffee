@@ -17,7 +17,6 @@ app.get "/feed.json",
     Account.findAll()
 
     .then (@accounts) =>
-      throw new Error("Oh well")
       @feed = new FeedManager(accounts)
       doFetch ||= @feed.age() > 3600000
 
