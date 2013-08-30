@@ -72,8 +72,18 @@ module.exports = class FeedManager
   # Returns a promise.
   get: (n=20) ->
     # Account for empty accounts
-    if @accounts.length > 0
-      Entry.findAll(where: ["account_id IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC", include: [ Account ])
+    ids = @accounts.map (a) -> a.id
+    seq = Entry.daoFactoryManager.sequelize
+    dialect = seq.options.dialect
+
+    if ids.length > 0
+      where = if dialect is 'postgres'
+        "account_id = ANY(ARRAY[#{ids.join(',')}])"
+      else
+        ["account_id = (?)", ids]
+
+      Entry.findAll(where: where, limit: n, order: "date DESC", include: [ Account ])
+
     else
       # For empty accounts, return an empty set
       Q.promise (ok) -> ok([])
