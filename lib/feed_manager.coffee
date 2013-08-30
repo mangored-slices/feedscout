@@ -71,4 +71,9 @@ module.exports = class FeedManager
   # Get latest `n` stories from given accounts.
   # Returns a promise.
   get: (n=20) ->
-    Entry.findAll(where: ["accountId IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC", include: [ Account ])
+    # Account for empty accounts
+    if @accounts.length > 0
+      Entry.findAll(where: ["accountId IN (?)", @accounts.map (a) -> a.id], limit: n, order: "date DESC", include: [ Account ])
+    else
+      # For empty accounts, return an empty set
+      Q.promise (ok) -> ok([])
