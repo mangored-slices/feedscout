@@ -141,7 +141,7 @@ Admin =
   ###
   # GET /admin/accounts/new
   ###
-  create: (req, res) ->
+  create: (req, res, next) ->
     data = req.body.account
 
     account = res.locals.account = Account.build(data)
@@ -152,8 +152,8 @@ Admin =
     account.save()
     .success ->
       res.redirect "/admin/accounts/#{account.id}"
-    .error ->
-      res.render "accounts/new-#{service}"
+    .error (e) -> next(e)
+    #   res.render "accounts/new-#{service}"
 
   ###
   # DELETE /admin/accounts/:id
