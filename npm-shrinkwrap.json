@@ -268,7 +268,7 @@
     "expo": {
       "version": "0.1.7",
       "from": "git://github.com/expo-js/expo",
-      "resolved": "git://github.com/expo-js/expo#caab235ded4f6c11ade8aaa8e9d4a22f5b1f71ac",
+      "resolved": "git://github.com/expo-js/expo#d856bf3c9234d6d6c47aee51f4fa44dfc6ddd587",
       "dependencies": {
         "commander": {
           "version": "1.1.1",
