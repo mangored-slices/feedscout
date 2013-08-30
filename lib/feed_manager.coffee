@@ -7,7 +7,7 @@ Entry = require './models/entry'
 module.exports = class FeedManager
   constructor: (@accounts) ->
     # Only work with authorized accounts
-    @accounts = @accounts.map (a) -> a?.isAuthorized()
+    @accounts = _(@accounts).select (a) -> a?.isAuthorized()
 
   ###
   # Fetches new updates from given account.
