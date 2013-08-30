@@ -35,8 +35,10 @@ module.exports = class InstagramFetcher
         url:       e.link
         text:      e.caption?.text
         fulltext:  null
-        image:     null
-        imageLarge: null
+        image:       e.images.?low_resolution?.url
+        imageLarge:  e.images.?standard_resolution?.url
+        # imageWidth:  e.images.?standard_resolution?.width
+        # imageHeight: e.images.?standard_resolution?.height
         data:      JSON.stringify(e)
 
   ###
