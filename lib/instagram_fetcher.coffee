@@ -30,6 +30,10 @@ module.exports = class InstagramFetcher
     # Map
     .then (entries) =>
       _(entries).map (e) =>
+        img =
+          height: e.images.?standard_resolution?.height
+          width:  e.images.?standard_resolution?.width
+
         account_id: @account.id
         date:      new Date(parseInt(e.created_time, 10) * 1000)
         url:       e.link
@@ -37,8 +41,7 @@ module.exports = class InstagramFetcher
         fulltext:  null
         image:       e.images?.low_resolution?.url
         image_large:  e.images?.standard_resolution?.url
-        # imageWidth:  e.images.?standard_resolution?.width
-        # imageHeight: e.images.?standard_resolution?.height
+        image_ratio:  (img.width / img.height) || 1.0
         data:      JSON.stringify(e)
 
   ###
