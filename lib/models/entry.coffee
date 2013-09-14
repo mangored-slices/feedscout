@@ -37,6 +37,8 @@ module.exports = Entry = app.sequelize().define("Entry",
       source: @account?.toJSON()
       date: Moment(@date).format()
       image: @image
+      image_large: @image_large
+      image_ratio: @image_ratio
       text: @text
       fulltext: @fulltext
       url: @url
