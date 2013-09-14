@@ -31,8 +31,8 @@ module.exports = class InstagramFetcher
     .then (entries) =>
       _(entries).map (e) =>
         img =
-          height: e.images.?standard_resolution?.height
-          width:  e.images.?standard_resolution?.width
+          height: e.images?.standard_resolution?.height
+          width:  e.images?.standard_resolution?.width
 
         account_id: @account.id
         date:      new Date(parseInt(e.created_time, 10) * 1000)
