@@ -46,6 +46,10 @@ module.exports = class FlickrFetcher
     # Fetch sizes for each photo
     .then (photos) =>
       photos.map (photo) =>
+        img =
+          height: photo.height_o
+          width:  photo.width_o
+
         account_id: @account.id
         text: photo.title
         date: new Date(parseInt(photo.dateupload, 10)*1000)
@@ -53,6 +57,7 @@ module.exports = class FlickrFetcher
         fulltext: photo.description?._content
         image: photo.url_m
         image_large: photo.url_l
+        image_ratio: (img.width / img.height) || 1.0
         data: JSON.stringify(photo)
 
   ###
