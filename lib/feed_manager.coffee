@@ -56,6 +56,8 @@ module.exports = class FeedManager
           date: entry.date
           text: entry.text
           image: entry.image
+          image_large: entry.image_large
+          image_ratio: entry.image_ratio
           fulltext: entry.fulltext
           url: entry.url
         ).save()
