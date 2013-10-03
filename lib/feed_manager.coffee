@@ -74,7 +74,7 @@ module.exports = class FeedManager
 
   # Get latest `n` stories from given accounts.
   # Returns a promise.
-  get: (n=20) ->
+  get: (n=50) ->
     # Account for empty accounts
     ids = @accounts.map (a) -> a.id
     seq = Entry.daoFactoryManager.sequelize
