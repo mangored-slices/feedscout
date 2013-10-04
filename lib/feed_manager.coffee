@@ -3,6 +3,7 @@ _ = require 'underscore'
 Moment = require 'moment'
 Account = require './models/account'
 Entry = require './models/entry'
+App = require '..'
 
 module.exports = class FeedManager
   constructor: (@accounts) ->
