@@ -45,6 +45,12 @@ module.exports = class TumblrFetcher
           entry.text     = unhtml(e.caption)
           entry.fulltext = null
 
+          img = e.photos?[0]?.original_size
+          alt = e.photos?[0]?.alt_sizes[1]   # 500px
+          entry.image = alt.url
+          entry.image_large = img.url
+          entry.image_ratio = (img.width / img.height) || 1.0
+
         else if e.type is 'quote'
           entry.text     = e.text
           entry.fulltext = null
