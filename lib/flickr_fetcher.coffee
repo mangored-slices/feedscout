@@ -53,7 +53,7 @@ module.exports = class FlickrFetcher
         account_id: @account.id
         text: photo.title
         date: new Date(parseInt(photo.dateupload, 10)*1000)
-        url: null
+        url: "http://www.flickr.com/photos/#{photo.owner}/#{photo.id}/"
         fulltext: photo.description?._content
         image: photo.url_m
         image_large: photo.url_l
