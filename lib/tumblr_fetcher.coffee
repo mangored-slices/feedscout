@@ -28,7 +28,6 @@ module.exports = class TumblrFetcher
     # Get images
     .then (res) =>
       entries = res.body?.response?.posts
-      console.log("Tumblr:", require('util').inspect(res.body))
       throw new Error('Wrong format') unless entries?
 
       entries = _(entries).select (e) ->
