@@ -24,8 +24,9 @@ module.exports = class FeedManager
           account.fetcher()?.fetch()
           .then (entries) =>
             @sync(account, entries)
-          .then null, ->
-            App.log.error "FeedManager: account '#{account.name}' failed to fetch, still continuing"
+          .then null, (e) ->
+            App.log.error "FeedManager: account '#{account.name}' failed to fetch, still continuing."
+            App.log.error require('util').inspect(e)
 
   ###
   # Pushes `entries` into database.
