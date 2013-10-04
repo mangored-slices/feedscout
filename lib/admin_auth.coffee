@@ -11,7 +11,11 @@ module.exports = AdminAuth = {}
 ###
 AdminAuth.auth = (user, pass) ->
   creds = app.conf("admin")
-  user is creds.username and hash(pass) is creds.password
+  opts =
+    username: process.env['ADMIN_USERNAME'] or creds.username
+    password: process.env['ADMIN_PASSWORD'] or creds.password
+
+  user is opts.username and hash(pass) is opts.password
 
 ###
 # Authentication middleware.
