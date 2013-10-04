@@ -4,15 +4,24 @@ _ = require 'underscore'
 Cors = require '../../lib/cors'
 Entry = require '../../lib/models/entry'
 Account = require '../../lib/models/account'
+AdminAuth = require '../../lib/admin_auth'
 FeedManager = require '../../lib/feed_manager'
 {run, local} = require '../../lib/express-decorators'
 
 # ----
 
+Filters =
+  authIfRefresh: (req, res, next) ->
+    force = !! req.query.refresh
+    if force
+      AdminAuth.authenticate(req, res, next)
+    else
+      next()
+
 app.get "/feed.json",
   Cors,
+  Filters.authIfRefresh,
   run (req, res, next) ->
-
     Account.findAll()
 
     .then (@accounts) =>
